@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="WebApplication4.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager runat="server" ID="scriptManager" />
+        <div class="container">
+            <div class="header">
+                MY HEADER
+            </div>
+            <div class="container-wrapper">
+                <div class="menu-wrapper">
+                    <ul>
+                        <li><a href="WebForm1.aspx">link1</a></li>
+                        <li><a href="WebForm2.aspx">link2</a></li>
+                        <li><a href="WebForm3.aspx">link3</a></li>
+                    </ul>
+                </div>
+                <div class="content-wrapper">
+                    <div>
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            CONTENUTO INIZIALE
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                MY FOOTER
+            </div>
+        </div>
+        
+    </form>
+</body>
+</html>
