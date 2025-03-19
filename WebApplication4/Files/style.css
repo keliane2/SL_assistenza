@@ -1,0 +1,55 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+}
+
+.header, .footer {
+    width: 100vw;
+    height: 140px;
+    background-color:darksalmon;
+    text-align:center;
+}
+
+.container-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    min-height:100vh;
+}
+
+.menu-wrapper {
+    width: 8vw;
+    background-color:antiquewhite
+}
+
+.content-wrapper {
+    width: 92vw;
+    background-color:beige;
+}
+
+.GridViewRow:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+.titleCliente {
+    display: block;
+    font-family: Arial Narrow, Arial;
+    font-size: 100px;
+    color: #575757;
+    height: 20px;
+    margin-top: 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-stretch: condensed;
+}
+
+.hidden{
+    display: none;
+}
