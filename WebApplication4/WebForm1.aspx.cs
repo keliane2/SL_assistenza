@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -51,7 +50,7 @@ namespace WebApplication4
             {
                 hideAll();
                 CaricaDatiClienti();
-            
+
             }
         }
 
@@ -60,12 +59,12 @@ namespace WebApplication4
             try
             {
                 l_myConnection.Open();
-            
+
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 gvHardwareInfo.DataSource = dt;
                 gvHardwareInfo.DataBind();
-               // gvHardwareInfo.Columns[0].Visible = false;
+                // gvHardwareInfo.Columns[0].Visible = false;
             }
             finally
             {
@@ -115,7 +114,7 @@ namespace WebApplication4
         {
             try
             {
-                SqlDataAdapter da = new SqlDataAdapter("SELECT SERVER_VIRTUALE_Id, SERVER_VIRTUALE_Nome FROM SERVER_VIRTUALI  WHERE SERVER_VIRTUALE_IdServerFisico="+ SERVER_VIRTUALE_IdServerFisico , l_myConnection);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT SERVER_VIRTUALE_Id, SERVER_VIRTUALE_Nome FROM SERVER_VIRTUALI  WHERE SERVER_VIRTUALE_IdServerFisico=" + SERVER_VIRTUALE_IdServerFisico, l_myConnection);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 gvServerVirtuale.DataSource = dt;
@@ -203,7 +202,7 @@ namespace WebApplication4
             {
                 int index = Convert.ToInt32(e.CommandArgument);
 
-                SqlCommand cmd = new SqlCommand("DELETE from HARDWARE WHERE (HARDWARE_Id = @HARDWARE_Id)",l_myConnection);
+                SqlCommand cmd = new SqlCommand("DELETE from HARDWARE WHERE (HARDWARE_Id = @HARDWARE_Id)", l_myConnection);
                 cmd.Parameters.AddWithValue("@HARDWARE_Id", index);
 
                 try
@@ -215,7 +214,7 @@ namespace WebApplication4
                 }
                 finally
                 {
-                    da=new SqlDataAdapter("SELECT HARDWARE_ID, HARDWARE_Seriale, HARDWARE_DataIstallazione, HARDWARE_GaranziaScadenza, HARDWARE_Fornitore, HARDWARE_FatturaCliente, HARDWARE_FatturaFornitore, HARDWARE_HD FROM HARDWARE", l_myConnection);
+                    da = new SqlDataAdapter("SELECT HARDWARE_ID, HARDWARE_Seriale, HARDWARE_DataIstallazione, HARDWARE_GaranziaScadenza, HARDWARE_Fornitore, HARDWARE_FatturaCliente, HARDWARE_FatturaFornitore, HARDWARE_HD FROM HARDWARE", l_myConnection);
                     l_myConnection.Close();
 
                     CaricaDati(da);
@@ -228,7 +227,7 @@ namespace WebApplication4
         {
             int index = Convert.ToInt32(e.CommandArgument);
 
-            GridViewRow selectedRow =gvServerFisico.Rows[index];
+            GridViewRow selectedRow = gvServerFisico.Rows[index];
 
             ServerFisicoCampo0.Text = "" + selectedRow.Cells[0].Text;
 
@@ -242,7 +241,7 @@ namespace WebApplication4
                     StorageUpdatePanel.Visible = true;
                     ServerFisicoActionPanel.Visible = true;
                     StoragePanel.Visible = false;
-                    ServerVirtualeUpdatePanel.Visible  = true;
+                    ServerVirtualeUpdatePanel.Visible = true;
                     StorageVirtualeUpdatepanel.Visible = false;
                     ServerVirtualePanelForm.Visible = false;
                     SSF.Visible = false;
@@ -332,7 +331,7 @@ namespace WebApplication4
                     StorageVirtualePanel.Visible = false;
                     SSV.Visible = false;
                     ServerVirtualeActionPanel.Visible = true;
-                    deleteServerVirtuale.Enabled=true;
+                    deleteServerVirtuale.Enabled = true;
                     SqlCommand myCommand = new SqlCommand("SELECT SERVER_VIRTUALE_Nome, SERVER_VIRTUALE_RAM, SERVER_VIRTUALE_CPU, SERVER_VIRTUALE_IP FROM SERVER_VIRTUALI where SERVER_VIRTUALE_Id = @SERVER_VIRTUALE_Id", l_myConnection);
                     myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_Id", serverVirtualeCampo0.Text.ToString());
 
@@ -428,11 +427,11 @@ namespace WebApplication4
                 finally
                 {
                     l_myConnection.Close();
-                
-                    da = new SqlDataAdapter("SELECT HARDWARE_ID, HARDWARE_Seriale, HARDWARE_DataIstallazione, HARDWARE_GaranziaScadenza, HARDWARE_Fornitore, HARDWARE_FatturaCliente, HARDWARE_FatturaFornitore, HARDWARE_HD FROM HARDWARE WHERE HARDWARE_IdCliente="+Convert.ToInt32(clientCampo0.Text), l_myConnection);
+
+                    da = new SqlDataAdapter("SELECT HARDWARE_ID, HARDWARE_Seriale, HARDWARE_DataIstallazione, HARDWARE_GaranziaScadenza, HARDWARE_Fornitore, HARDWARE_FatturaCliente, HARDWARE_FatturaFornitore, HARDWARE_HD FROM HARDWARE WHERE HARDWARE_IdCliente=" + Convert.ToInt32(clientCampo0.Text), l_myConnection);
                     CaricaDati(da);
                 }
-            
+
             }
             else
             {
@@ -509,7 +508,7 @@ namespace WebApplication4
             pulisci_HW();
             HwPnlForm.Visible = false;
         }
-    
+
 
         protected void pulisci_HW()
         {
@@ -593,10 +592,10 @@ namespace WebApplication4
             HwPnlForm.Visible = false;
         }
         protected void BtnDropRow_Click(object sender, EventArgs e)
-        { 
+        {
 
 
-            if (campo0.Text!="")
+            if (campo0.Text != "")
             {
                 try
                 {
@@ -623,7 +622,7 @@ namespace WebApplication4
         private void delete_hardware(string hardware_Id)
         {
 
-            SqlCommand myCommand, cmd; 
+            SqlCommand myCommand, cmd;
 
             myCommand = new SqlCommand("SELECT FILE_Id FROM FILES WHERE FILE_IdHardware=@FILE_IdHardware", l_myConnection);
             myCommand.Parameters.AddWithValue("@FILE_IdHardware", hardware_Id);
@@ -662,7 +661,7 @@ namespace WebApplication4
 
             StoragePanel.Visible = true;
             DeleteStorage.Enabled = true;
-            SaveStorage.Enabled = true;      
+            SaveStorage.Enabled = true;
         }
 
         protected void SaveStorage_Click(object sender, EventArgs e)
@@ -778,7 +777,7 @@ namespace WebApplication4
                     myCommand.Parameters.AddWithValue("@SERVER_FISICO_IdTipologia", 7);
 
 
-                    if(ServerFisicoCampo0.Text == "")
+                    if (ServerFisicoCampo0.Text == "")
                     {
                         using (SqlDataReader myDataReader = myCommand.ExecuteReader())
                         {
@@ -813,7 +812,7 @@ namespace WebApplication4
 
 
                     da2 = new SqlDataAdapter("SELECT SERVER_FISICO_Id, SERVER_FISICO_Nome FROM SERVER_FISICI where SERVER_FISICO_IdCliente = " + clientCampo0.Text.ToString(), l_myConnection);
-                
+
                 }
                 finally
                 {
@@ -853,7 +852,7 @@ namespace WebApplication4
 
         protected void btnToggleVisibilityStorage_Click(object sender, EventArgs e)
         {
-            if (ServerFisicoCampo0.Text!="")
+            if (ServerFisicoCampo0.Text != "")
             {
                 StoragePanel.Visible = true;
                 DeleteStorage.Enabled = false;
@@ -894,7 +893,7 @@ namespace WebApplication4
                     while (myDataReader.Read())
                     {
                         if (myDataReader["STORAGE_Nome"] != DBNull.Value)
-                        { 
+                        {
                             // Crea un nuovo ListItem con il testo e il valore
                             items.Add(myDataReader["STORAGE_Nome"].ToString());
 
@@ -915,7 +914,7 @@ namespace WebApplication4
                     //ServerVirtualeStorage.Items.Add(new ListItem(item));
                 }
             }
-        
+
         }
 
         protected void SaveServerVirtuale_Click(object sender, EventArgs e)
@@ -1077,6 +1076,7 @@ namespace WebApplication4
                 ServerVirtualePanelForm.Visible = true;
                 SaveServerVirtuale.Enabled = true;
                 deleteServerVirtuale.Enabled = false;
+                ServerVirtualeActionPanel.Visible = true;
                 SSV.Visible = true;
             }
         }
@@ -1178,7 +1178,7 @@ namespace WebApplication4
 
         protected void btnToggleVisibilityHw_Click(object sender, EventArgs e)
         {
-            if(clientCampo0.Text != "")
+            if (clientCampo0.Text != "")
             {
                 pulisci_HW();
                 HwPnlForm.Visible = true;
@@ -1449,7 +1449,7 @@ namespace WebApplication4
 
                         myCommand.ExecuteNonQuery();
                     }
-                    
+
                 }
                 finally
                 {
