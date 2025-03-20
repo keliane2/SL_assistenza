@@ -1,15 +1,16 @@
-﻿* {
+/* Resetting default styles */
+* {
     box-sizing: border-box;
 }
 
 body, html {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     height: 100%;
     width: 100%;
 }
 
+/* Container per l'intera pagina */
 .container {
     display: flex;
     flex-direction: column;
@@ -17,114 +18,163 @@ body, html {
     min-height: 100vh;
 }
 
+/* Header e Footer */
 .header, .footer {
     width: 100vw;
-    height: 20px;
-    background-color: darksalmon;
+    background-color: #16a085; /* Blu chiaro */
     text-align: center;
-    padding: 60px 0;
+    padding: 30px 0;
+    color: white;
+    font-size: 1.2em;
 }
 
+/* Wrapper per menu e contenuto */
 .container-wrapper {
     display: flex;
     flex: 1;
     flex-direction: row;
     width: 100%;
+    gap: 15px;
+    padding: 20px;
 }
 
+/* Stili per il menu */
 .menu-wrapper {
-    width: 10vw;
-    background-color: antiquewhite
+    width: 20vw;
+    background-color: #f0f4f8; /* Grigio molto chiaro */
+    padding: 15px;
+    border-radius: 8px;
 }
 
 .content-wrapper {
-    width: 92vw;
-    background-color: beige;
-}
-
-.form-container {
-    width: 60vw;
-    margin: 20px auto;
+    flex: 1;
+    background-color: #f0f4f8; /* Grigio chiaro */
     padding: 20px;
     border-radius: 8px;
 }
 
+/* Contenitore del form */
+.form-container {
+    width: 60vw;
+    margin: 20px auto;
+    padding: 20px 2% 0px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Righe del form */
 .form-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    align-items: end;
+    align-items: flex-end;
 }
 
+    /* Spaziatura per i campi di input */
     .form-row div {
-        width: 30%;
-        bottom: 0;
+        width: 30%; /* Spazio tra gli elementi */
     }
 
-    .saveServerFisico {
-        display: flex;
-        width: 30%;
-        bottom: 0;
-        flex-direction: row;
-        justify-content: center;
-    }
-
+    /* Stili per le etichette e gli input del form */
     .form-row label {
-        display: block;
         font-weight: bold;
         margin-bottom: 5px;
+        color: #2C3E50; /* Blu scuro */
     }
 
-    .form-row input {
+    .form-row input, .form-row select {
         width: 100%;
-        padding: 5px;
+        padding: 10px;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 6px;
+        font-size: 1em;
     }
 
+/* Stile per il dropdown */
 .drop-down-list {
-    width: 100%; /* Imposta la larghezza al 100% */
-    padding: 5px; /* Imposta il padding */
-    border: 1px solid #ccc; /* Imposta il bordo */
-    border-radius: 4px; /* Imposta i bordi arrotondati */
-    appearance: none; /* Rimuove lo stile predefinito del browser */
-    -webkit-appearance: none; /* Per Safari */
-    -moz-appearance: none; /* Per Firefox */
-    background-color: white; /* Imposta uno sfondo bianco */
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 6px;
 }
 
+/* Contenitore per i pulsanti */
 .button-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
+
+    /* Stili per i pulsanti */
     .button-container input, .button-container .showFile-btn, .updateClient-btn, .saveStorage-btn, .saveServerFisico-btn {
+        padding: 12px;
         width: 30%;
-        padding: 8px;
         border: none;
-        border-radius: 4px;
+        border-radius: 6px;
         cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
     }
 
+/* Colore dei pulsanti */
 .update-btn, .delete-btn, .deleteFile-btn, .updateClient-btn, .showFile-btn, .saveStorage-btn, .saveServerFisico-btn {
-    background-color: darksalmon;
-    color: black;
+    background-color: #16a085; /* Verde menta */
+    color: white;
 }
 
-.deleteFile-btn, .showFile-btn {
-    padding: 8px;
-}
+    .update-btn:hover, .delete-btn:hover, .deleteFile-btn:hover, .saveStorage-btn:hover, .saveServerFisico-btn:hover {
+        background-color: #1abc9c; /* Verde più chiaro per hover */
+    }
 
-.updateClient-btn, .saveStorage-btn {
+.saveStorage-btn, .saveServerFisico-btn {
     width: 100%;
 }
 
+/* Evidenziazione della riga selezionata */
 .selected-row {
-    background-color: darksalmon !important;
+    background-color: #e67e22 !important; /* Corallo */
+    color: white;
 }
 
-.hidden{
-    display:none;
+/* Elementi nascosti */
+.hidden {
+    display: none;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-wrapper {
+        flex-direction: column;
+    }
+
+    .menu-wrapper {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .content-wrapper {
+        width: 100%;
+    }
+
+    .form-container {
+        width: 90%;
+    }
+
+    .form-row div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 15px;
+    }
+
+    .saveServerFisico {
+        width: 100%;
+        gap: 20px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
