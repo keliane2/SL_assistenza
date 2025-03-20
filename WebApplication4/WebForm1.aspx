@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication4.WebForm1" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication4.WebForm1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager runat="server" ID="scriptManager" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -21,11 +21,11 @@
                 return;
             }
             openPdfPopup(hardwareId);
-           
+
         }
         // Apre il pdf in un pop up
         function openPdfPopup(pdfId) {
-            
+
             var popupUrl = "PdfHandler.ashx?id=" + encodeURIComponent(pdfId);
             window.open(popupUrl, "PDF Viewer", "width=800,height=600");
         }
@@ -45,19 +45,19 @@
             if (id == "addHw") {
                 document.getElementById('<%= btnToggleVisibilityHw.ClientID %>').click();
             }
-            if (id == "addServerVirtuale"){
+            if (id == "addServerVirtuale") {
                 document.getElementById('<%= btnToggleVisibilityServerVirtuale.ClientID %>').click();
             }
-            if (id=="addStorageVirtuale") {
+            if (id == "addStorageVirtuale") {
                 document.getElementById('<%= btnToggleVisibilityStorageVirtuale.ClientID %>').click();
             }
-        }   
+        }
 
         //confirm delete box
         function confirmDelete() {
             return confirm("Sei sicuro di voler eliminare questo cliente? potrebbe essere già collegato a qualche hardware o sever fisico");
         }
-        
+
     </script>
     
 
@@ -68,8 +68,8 @@
         <ContentTemplate>
             <table style="width: calc(100%);" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td style="height:50px; background-color:blanchedalmond; border-bottom:solid 1px #C7C7C7">
-                        <h2 style="margin-left:10px">CLIENTI<span style="float:right; margin:-5px 10px 0 0;" ><i id="addCliente" style="font-weight: bolder; background-color: darksalmon; font-size:32px; border: 2px solid darksalmon; border-radius: 30%" class="bi bi-plus" onClick="showPanel(this.id)"></i></span></h2>
+                    <td style="height:50px; background-color:#16a085; border-bottom:solid 1px #C7C7C7">
+                        <h2 style="margin-left:10px">CLIENTI<span style="float:right; margin:-5px 10px 0 0;" ><i id="addCliente" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onClick="showPanel(this.id)"></i></span></h2>
                      </td>
                 </tr>
             </table>
@@ -129,8 +129,8 @@ BorderStyle="None" CellPadding="0" CellSpacing="0" ForeColor="Black" PageSize="1
         <ContentTamplate>
              <table style="width:calc(100%);" cellpadding="0" cellspacing="0">
                  <tr>
-                     <td style="height:50px; background-color:blanchedalmond; border-bottom:solid 1px #C7C7C7">
-                         <h2 style="margin-left:10px">HARDWARE CLIENTI<span style="float:right; margin:-5px 10px 0 0;" ><i id="addHw" style="font-weight: bolder; background-color: darksalmon; font-size:32px; border: 2px solid darksalmon; border-radius: 30%" class="bi bi-plus" onClick="showPanel(this.id)"></i></span></h2>
+                     <td style="height:50px; background-color:#16a085; border-bottom:solid 1px #C7C7C7">
+                         <h2 style="margin-left:10px">HARDWARE CLIENTI<span style="float:right; margin:-5px 10px 0 0;" ><i id="addHw" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onClick="showPanel(this.id)"></i></span></h2>
                      </td>
                  </tr>
              </table>
@@ -254,8 +254,8 @@ BorderStyle="None" CellPadding="0" CellSpacing="0" ForeColor="Black" PageSize="1
         <contentTemplate>
             <table style="width:calc(100%);" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td style="height:50px; background-color:blanchedalmond; border-bottom:solid 1px #C7C7C7">
-                        <h2 style="margin-left:10px">SERVER FISICI<span style="float:right; margin:-5px 10px 0 0;" ><i id="addServerFisico" style="font-weight: bolder; background-color: darksalmon; font-size:32px; border: 2px solid darksalmon; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
+                    <td style="height:50px; background-color:#16a085; border-bottom:solid 1px #C7C7C7">
+                        <h2 style="margin-left:10px">SERVER FISICI<span style="float:right; margin:-5px 10px 0 0;" ><i id="addServerFisico" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
                     </td>
                 </tr>
             </table>
@@ -389,8 +389,8 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
         <contentTemplate>
             <table style="width:calc(100%); " cellpadding="0" cellspacing="0">
                 <tr>
-                    <td style="height:50px; background-color:blanchedalmond; border-bottom:solid 1px #C7C7C7">
-                        <h2 style="margin-left:10px">STORAGE SERVER FISICI<span style="float:right; margin:-5px 10px 0 0;" ><i id="addStorage" style="font-weight: bolder; background-color: darksalmon; font-size:32px; border: 2px solid darksalmon; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
+                    <td style="height:50px; background-color:#16a085; border-bottom:solid 1px #C7C7C7">
+                        <h2 style="margin-left:10px">STORAGE SERVER FISICI<span style="float:right; margin:-5px 10px 0 0;" ><i id="addStorage" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
                     </td>
                 </tr>
             </table>
@@ -471,8 +471,8 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  EmptyDataText="NESSUN STOR
         <contentTemplate>
             <table style="width:calc(100%);" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td style="height:50px; background-color:blanchedalmond; border-bottom:solid 1px #C7C7C7">
-                        <h2 style="margin-left:10px">SERVER VIRTUALE<span style="float:right; margin:-5px 10px 0 0;" ><i id="addServerVirtuale" style="font-weight: bolder; background-color: darksalmon; font-size:32px; border: 2px solid darksalmon; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
+                    <td style="height:50px; background-color:#16a085; border-bottom:solid 1px #C7C7C7">
+                        <h2 style="margin-left:10px">SERVER VIRTUALE<span style="float:right; margin:-5px 10px 0 0;" ><i id="addServerVirtuale" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
                     </td>
                 </tr>
             </table>
@@ -541,6 +541,27 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                 </asp:Panel>
             </div>
 
+            <div class="form-container" style="padding-bottom: 20px">
+                <h2>Aggiungi Storage<span style="float:right; margin:-5px 10px 0 0;" ><i style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus"></i></span></h2>
+                <div id="storageForm">
+                    <div class="form-row">
+                        <div>
+                            <label for="storageName">Nome dello Storage</label>
+                            <input type="text" id="storageName" name="storageName" placeholder="Inserisci nome dello storage" required>
+                        </div>
+                        <div>
+                            <label for="storageCapacity">Capacità</label>
+                            <input type="number" id="storageCapacity" name="storageCapacity" placeholder="Inserisci capacità" required>
+                        </div>
+                        <div>
+                            <label for="storageSize">Dimensioni</label>
+                            <input type="text" id="storageSize" name="storageSize" placeholder="Inserisci dimensioni" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <asp:Button ID="btnToggleVisibilityServerVirtuale" runat="server" OnClick="btnToggleVisibilityServerVirtuale_Click" style="display:none;" />
              
         </contentTemplate>
@@ -550,8 +571,8 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
         <contentTemplate>
             <table style="width:calc(100%); " cellpadding="0" cellspacing="0">
                 <tr>
-                    <td style="height:50px; background-color:blanchedalmond; border-bottom:solid 1px #C7C7C7">
-                        <h2 style="margin-left:10px">STORAGE SERVER VIRTUALE<span style="float:right; margin:-5px 10px 0 0;" ><i id="addStorageVirtuale" style="font-weight: bolder; background-color: darksalmon; font-size:32px; border: 2px solid darksalmon; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
+                    <td style="height:50px; background-color:#16a085; border-bottom:solid 1px #C7C7C7">
+                        <h2 style="margin-left:10px">STORAGE SERVER VIRTUALE<span style="float:right; margin:-5px 10px 0 0;" ><i id="addStorageVirtuale" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
                     </td>
                 </tr>
             </table>
@@ -620,9 +641,11 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  EmptyDataText="NESSUN STOR
                 </asp:Panel>
             </div>
 
+
+
             <asp:Button ID="btnToggleVisibilityStorageVirtuale" runat="server" OnClick="btnToggleVisibilityStorageVirtuale_Click" style="display:none;" />
            
         </contentTemplate>
     </updatepanel>
-
+    
 </asp:Content>
