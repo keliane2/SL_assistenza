@@ -34,7 +34,6 @@
         function showPanel(id) {
             if (id == "addStorage") {
                 var btn = document.getElementById('<%= btnToggleVisibilityStorage.ClientID %>').click();
-
             }
             if (id == "addServerFisico") {
                 document.getElementById('<%= btnToggleVisibility.ClientID %>').click();
@@ -51,6 +50,31 @@
             if (id == "addStorageVirtuale") {
                 document.getElementById('<%= btnToggleVisibilityStorageVirtuale.ClientID %>').click();
             }
+            if (id == "addSSF") {
+                add_newFormRow('SSFForm');
+                document.getElementById('<%= AddSSF_Button.ClientID %>').click();
+            }
+            if (id == "addSSV") {
+                document.getElementById('<%= AddSSV_Button.ClientID %>').click();
+            }
+        }
+
+        function add_newFormRow(id) {
+            document.getElementById('SSFForm').innerHTML = `<div class="form-row">
+                                                        <div>
+                                                            <label for="SSF_Nome">Nome Storage: </label>
+                                                            <asp:TextBox id="ee" runat="server" ></asp:TextBox>
+                                                        </div>
+                                                        <div>
+                                                            <label for="SSF_Capacita">Capacità: </label>
+                                                            <asp:TextBox id="er" runat="server" ></asp:TextBox>
+                                                        </div>
+                                                        <div>
+                                                            <label for="SSF_Note">Note: </label>
+                                                            <asp:TextBox id="uufu" runat="server"></asp:TextBox>
+                                                        </div>
+                                                    </div > `;
+
         }
 
         //confirm delete box
@@ -363,6 +387,37 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                          </div>
                      </div>
 
+                     <div style="visibility:hidden; height: none"> 
+                         <asp:TextBox ID="ServerFisicoCampo0" runat="server"></asp:TextBox>
+                     </div>
+
+                </asp:Panel>
+
+                 <asp:Panel ID="SSF" runat="server" CssClass="form-container">
+                     <div>
+                        <h2>Aggiungi Storage<span style="float:right; margin:-5px 10px 0 0;" ><i id="addSSF" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
+                        <div id="SSFForm">
+                            <div class="form-row">
+                                <div>
+                                    <label for="SSF_Nome">Nome Storage:</label>
+                                    <asp:TextBox id="SSF_Nome" runat="server" ></asp:TextBox>
+                                </div>
+                                <div>
+                                    <label for="SSF_Capacita">Capacità: </label>
+                                    <asp:TextBox id="SSF_Capacita" runat="server" ></asp:TextBox>
+                                </div>
+                                <div>
+                                    <label for="SSF_Note">Note: </label>
+                                    <asp:TextBox id="SSF_Note" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <asp:Button ID="AddSSF_Button" runat="server" OnClick="AddSSF_Button_Click" style="display:none;" />
+
+                 </asp:Panel>
+
+                <asp:Panel ID="ServerFisicoActionPanel" runat="server" CssClass="form-container">
                     <div class="form-row">
                         <div>
                             <asp:Button ID="SaveServerFisico" runat="server" Text="Save" OnClick="SaveServerFisico_Click" CssClass="saveServerFisico-btn" />
@@ -371,10 +426,6 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                             <asp:Button ID="deleteServerFisico" runat="server" Text="Delete" OnClick="deleteServerFisico_Click" CssClass="saveServerFisico-btn" />
                         </div>
                     </div>
-                     <div style="visibility:hidden; height: none"> 
-                         <asp:TextBox ID="ServerFisicoCampo0" runat="server"></asp:TextBox>
-                     </div>
-
                 </asp:Panel>
             </div>
 
@@ -525,6 +576,38 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                         </div>
                     </div>
 
+                     <div style="visibility:hidden; height: none"> 
+                         <asp:TextBox ID="serverVirtualeCampo0" runat="server"></asp:TextBox>
+                     </div>
+
+                </asp:Panel>
+
+
+                 <asp:Panel ID="SSV" runat="server" CssClass="form-container">
+                     <div>
+                        <h2>Aggiungi Storage Virtuale<span style="float:right; margin:-5px 10px 0 0;" ><i id="addSSV" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
+                        <div id="SSVForm">
+                            <div class="form-row">
+                                <div>
+                                    <label for="SSV_Nome">Nome Storage:</label>
+                                    <asp:TextBox id="SSV_Nome" runat="server" ></asp:TextBox>
+                                </div>
+                                <div>
+                                    <label for="SSV_Capacita">Capacità: </label>
+                                    <asp:TextBox id="SSV_Capacita" runat="server" ></asp:TextBox>
+                                </div>
+                                <div>
+                                    <label for="SSV_Note">Note: </label>
+                                    <asp:TextBox id="SSV_Note" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <asp:Button ID="AddSSV_Button" runat="server" OnClick="AddSSV_Button_Click" style="display:none;" />
+
+                 </asp:Panel>
+
+                 <asp:Panel ID="ServerVirtualeActionPanel" runat="server" CssClass="form-container">
                     <div class="form-row">
                         <div class="saveServerVirtuale">
                             <asp:button ID="SaveServerVirtuale" runat="server" text="Save" OnClick="SaveServerVirtuale_Click" CssClass="saveServerFisico-btn"/>
@@ -533,32 +616,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                             <asp:button ID="deleteServerVirtuale" runat="server" text="Delete" OnClick="deleteServerVirtuale_Click" CssClass="saveServerFisico-btn"/>
                         </div>
                     </div>
-
-                     <div style="visibility:hidden; height: none"> 
-                         <asp:TextBox ID="serverVirtualeCampo0" runat="server"></asp:TextBox>
-                     </div>
-
-                </asp:Panel>
-            </div>
-
-            <div class="form-container" style="padding-bottom: 20px">
-                <h2>Aggiungi Storage<span style="float:right; margin:-5px 10px 0 0;" ><i style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus"></i></span></h2>
-                <div id="storageForm">
-                    <div class="form-row">
-                        <div>
-                            <label for="storageName">Nome dello Storage</label>
-                            <input type="text" id="storageName" name="storageName" placeholder="Inserisci nome dello storage" required>
-                        </div>
-                        <div>
-                            <label for="storageCapacity">Capacità</label>
-                            <input type="number" id="storageCapacity" name="storageCapacity" placeholder="Inserisci capacità" required>
-                        </div>
-                        <div>
-                            <label for="storageSize">Dimensioni</label>
-                            <input type="text" id="storageSize" name="storageSize" placeholder="Inserisci dimensioni" required>
-                        </div>
-                    </div>
-                </div>
+                 </asp:Panel>
             </div>
 
 

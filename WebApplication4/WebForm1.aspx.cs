@@ -87,6 +87,10 @@ namespace WebApplication4
             ServerVirtualeUpdatePanel.Visible = false;
             StorageVirtualePanel.Visible = false;
             StorageVirtualeUpdatepanel.Visible = false;
+            SSF.Visible = false;
+            ServerFisicoActionPanel.Visible = false;
+            SSV.Visible = false;
+            ServerVirtualeActionPanel.Visible = false;
         }
 
         private void CaricaDatiServerFisico(SqlDataAdapter da)
@@ -236,10 +240,12 @@ namespace WebApplication4
                 {
                     ServerFisicoPanel.Visible = true;
                     StorageUpdatePanel.Visible = true;
+                    ServerFisicoActionPanel.Visible = true;
                     StoragePanel.Visible = false;
                     ServerVirtualeUpdatePanel.Visible  = true;
                     StorageVirtualeUpdatepanel.Visible = false;
                     ServerVirtualePanelForm.Visible = false;
+                    SSF.Visible = false;
                     //SaveServerFisico.Enabled = false;
                     deleteServerFisico.Enabled = true;
                     SqlCommand myCommand = new SqlCommand("SELECT SERVER_FISICO_Nome, SERVER_FISICO_Note, SERVER_FISICO_Seriale, SERVER_FISICO_DataIstallazione, SERVER_FISICO_GaranziaScadenza, SERVER_FISICO_IP, SERVER_FISICO_HD, SERVER_FISICO_Fornitore, SERVER_FISICO_FatturaCliente, SERVER_FISICO_FatturaFornitore, SERVER_FISICO_Dominio, SERVER_FISICO_Subnet, SERVER_FISICO_Gateway, SERVER_FISICO_HostNameMailServer FROM SERVER_FISICI where SERVER_FISICO_Id = @SERVER_FISICO_Id", l_myConnection);
@@ -324,7 +330,8 @@ namespace WebApplication4
                     //ServerFisicoPanel.Visible = true;
                     StorageVirtualeUpdatepanel.Visible = true;
                     StorageVirtualePanel.Visible = false;
-
+                    SSV.Visible = false;
+                    ServerVirtualeActionPanel.Visible = true;
                     deleteServerVirtuale.Enabled=true;
                     SqlCommand myCommand = new SqlCommand("SELECT SERVER_VIRTUALE_Nome, SERVER_VIRTUALE_RAM, SERVER_VIRTUALE_CPU, SERVER_VIRTUALE_IP FROM SERVER_VIRTUALI where SERVER_VIRTUALE_Id = @SERVER_VIRTUALE_Id", l_myConnection);
                     myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_Id", serverVirtualeCampo0.Text.ToString());
@@ -715,6 +722,13 @@ namespace WebApplication4
         {
             if (clientCampo0.Text != "")
             {
+                int capacita;
+                if (int.TryParse(SSF_Capacita.Text, out capacita))  // Assicurati di fare il parsing corretto
+                {
+                    // Aggiungi il nuovo StorageFisico alla lista
+                    this.StorageFisicoList.Add(new StorageFisico(SSF_Nome.Text, capacita, SSF_Note.Text));
+                    Session["StorageFisicoList"] = StorageFisicoList;
+                }
                 try
                 {
                     l_myConnection.Open();
@@ -772,6 +786,22 @@ namespace WebApplication4
                             {
                                 // Imposta il valore di ServerFisicoNome al valore dell'ID appena inserito
                                 ServerFisicoCampo0.Text = myDataReader["SERVER_FISICO_Id"].ToString();
+
+                                if (this.StorageFisicoList != null)
+                                {
+                                    foreach (StorageFisico storage in this.StorageFisicoList)
+                                    {
+                                        myCommand = new SqlCommand("INSERT INTO STORAGE VALUES(@STORAGE_Nome,@STORAGE_Capacita,@STORAGE_Note,@STORAGE_ServerFisicoId, @STORAGE_ServerVirtualeId)", l_myConnection);
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Nome", storage.Nome.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Capacita", storage.Capacita);
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Note", storage.Note.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_ServerFisicoId", ServerFisicoCampo0.Text.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_ServerVirtualeId", DBNull.Value);
+
+                                        myCommand.ExecuteNonQuery();
+
+                                    }
+                                }
                             }
                         }
                     }
@@ -780,6 +810,7 @@ namespace WebApplication4
                         myCommand.ExecuteNonQuery();
 
                     }
+
 
                     da2 = new SqlDataAdapter("SELECT SERVER_FISICO_Id, SERVER_FISICO_Nome FROM SERVER_FISICI where SERVER_FISICO_IdCliente = " + clientCampo0.Text.ToString(), l_myConnection);
                 
@@ -792,9 +823,12 @@ namespace WebApplication4
                     CaricaDatiStorage(ServerFisicoCampo0.Text);
                     CaricaDatiServerVirtuale(ServerFisicoCampo0.Text);
 
-                    ServerFisicoPanel.Visible = false;
+                    hideAll();
+                    ServerFisicoUpdatePanel.Visible = true;
+                    HwUpdatepanel.Visible = true;
+                    StorageFisicoList = null;
                 }
-                pulisci_ServerFisico();
+                //pulisci_ServerFisico();
             }
         }
 
@@ -810,7 +844,9 @@ namespace WebApplication4
                 ServerFisicoCampo0.Text = "";
                 ServerVirtualePanelForm.Visible = false;
                 StoragePanel.Visible = false;
-
+                SSF.Visible = true;
+                ServerFisicoActionPanel.Visible = true;
+                Session["StorageFisicoList"] = null;
 
             }
         }
@@ -858,7 +894,7 @@ namespace WebApplication4
                     while (myDataReader.Read())
                     {
                         if (myDataReader["STORAGE_Nome"] != DBNull.Value)
-                        {
+                        { 
                             // Crea un nuovo ListItem con il testo e il valore
                             items.Add(myDataReader["STORAGE_Nome"].ToString());
 
@@ -886,6 +922,13 @@ namespace WebApplication4
         {
             if (clientCampo0.Text != "" && ServerFisicoCampo0.Text != "")
             {
+                int capacita;
+                if (int.TryParse(SSV_Capacita.Text, out capacita))  // Assicurati di fare il parsing corretto
+                {
+                    // Aggiungi il nuovo StorageFisico alla lista
+                    StorageVirtualeList.Add(new StorageVirtuale(SSV_Nome.Text, capacita, SSV_Note.Text));
+                    Session["StorageVirtualeList"] = StorageVirtualeList;
+                }
                 try
                 {
                     l_myConnection.Open();
@@ -895,7 +938,18 @@ namespace WebApplication4
 
                     if (serverVirtualeCampo0.Text == "")
                     {
-                        myCommand = new SqlCommand("INSERT INTO SERVER_VIRTUALI VALUES(@SERVER_VIRTUALE_Nome, @SERVER_VIRTUALE_RAM, @SERVER_VIRTUALE_CPU, @SERVER_VIRTUALE_IP, @SERVER_VIRTUALE_IdServerFisico)", l_myConnection);
+                        myCommand = new SqlCommand(@"
+                                    DECLARE @NuovoId INT ;
+                                    INSERT INTO SERVER_VIRTUALI 
+                                    VALUES(@SERVER_VIRTUALE_Nome, @SERVER_VIRTUALE_RAM, @SERVER_VIRTUALE_CPU, @SERVER_VIRTUALE_IP, @SERVER_VIRTUALE_IdServerFisico);
+
+                                    SET @NuovoId = SCOPE_IDENTITY();
+    
+                                    SELECT SERVER_VIRTUALE_Id
+                                    FROM SERVER_VIRTUALI
+                                    WHERE SERVER_VIRTUALE_Id=@NuovoId;
+                                ", l_myConnection
+                        );
                     }
                     else
                     {
@@ -908,10 +962,38 @@ namespace WebApplication4
                     myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_IP", ServerVirtualeIP.Text.ToString());
                     myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_IdServerFisico", ServerFisicoCampo0.Text.ToString());
 
+                    if (serverVirtualeCampo0.Text == "")
+                    {
+                        using (SqlDataReader myDataReader = myCommand.ExecuteReader())
+                        {
+                            if (myDataReader.Read() && myDataReader["SERVER_VIRTUALE_Id"] != DBNull.Value)
+                            {
+                                // Imposta il valore di ServerFisicoNome al valore dell'ID appena inserito
+                                serverVirtualeCampo0.Text = myDataReader["SERVER_VIRTUALE_Id"].ToString();
 
+                                if (this.StorageVirtualeList != null)
+                                {
+                                    foreach (StorageVirtuale storage in this.StorageVirtualeList)
+                                    {
+                                        myCommand = new SqlCommand("INSERT INTO STORAGE VALUES(@STORAGE_Nome,@STORAGE_Capacita,@STORAGE_Note,@STORAGE_ServerFisicoId, @STORAGE_ServerVirtualeId)", l_myConnection);
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Nome", storage.Nome.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Capacita", storage.Capacita);
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Note", storage.Note.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_ServerFisicoId", DBNull.Value);
+                                        myCommand.Parameters.AddWithValue("@STORAGE_ServerVirtualeId", serverVirtualeCampo0.Text.ToString());
 
+                                        myCommand.ExecuteNonQuery();
 
-                    myCommand.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        myCommand.ExecuteNonQuery();
+
+                    }
 
                 }
                 finally
@@ -922,6 +1004,10 @@ namespace WebApplication4
                     //CaricaDatiStorage(ServerFisicoCampo0.Text);
 
                     ServerVirtualePanelForm.Visible = false;
+                    SSV.Visible = false;
+                    ServerVirtualeActionPanel.Visible = false;
+                    StorageVirtualeUpdatepanel.Visible = false;
+                    StorageVirtualeList = null;
                 }
                 pulisci_ServerVirtuale();
             }
@@ -949,6 +1035,9 @@ namespace WebApplication4
             }
             pulisci_ServerVirtuale();
             ServerVirtualePanelForm.Visible = false;
+            SSV.Visible = false;
+            ServerVirtualeActionPanel.Visible = false;
+            StorageVirtualeUpdatepanel.Visible = false;
         }
 
 
@@ -988,7 +1077,7 @@ namespace WebApplication4
                 ServerVirtualePanelForm.Visible = true;
                 SaveServerVirtuale.Enabled = true;
                 deleteServerVirtuale.Enabled = false;
-            
+                SSV.Visible = true;
             }
         }
 
@@ -1015,7 +1104,9 @@ namespace WebApplication4
             CaricaDatiStorage(ServerFisicoCampo0.Text);
             CaricaDatiServerVirtuale(ServerFisicoCampo0.Text);
             pulisci_ServerFisico();
-            ServerFisicoPanel.Visible = false;
+            hideAll();
+            ServerFisicoUpdatePanel.Visible = true;
+            HwUpdatepanel.Visible = true;
         }
 
         private void delete_serverFisco(string serverFisico_Id)
@@ -1402,6 +1493,33 @@ namespace WebApplication4
             StorageVirtualeNome.Text = "";
             StorageVirtualeCapacita.Text = "";
             StorageVirtualeNote.Text = "";
+        }
+
+        protected void AddSSF_Button_Click(object sender, EventArgs e)
+        {
+
+            int capacita;
+            if (int.TryParse(SSF_Capacita.Text, out capacita))
+            {
+                StorageFisicoList.Add(new StorageFisico(SSF_Nome.Text, capacita, SSF_Note.Text));
+                Session["StorageFisicoList"] = StorageFisicoList;
+                SSF_Nome.Text = "";
+                SSF_Capacita.Text = "";
+                SSF_Note.Text = "";
+            }
+        }
+
+        protected void AddSSV_Button_Click(object sender, EventArgs e)
+        {
+            int capacita;
+            if (int.TryParse(SSV_Capacita.Text, out capacita))
+            {
+                StorageVirtualeList.Add(new StorageVirtuale(SSV_Nome.Text, capacita, SSV_Note.Text));
+                Session["StorageVirtualeList"] = StorageVirtualeList;
+                SSV_Nome.Text = "";
+                SSV_Capacita.Text = "";
+                SSV_Note.Text = "";
+            }
         }
 
         protected void btnToggleVisibilityStorageVirtuale_Click(object sender, EventArgs e)

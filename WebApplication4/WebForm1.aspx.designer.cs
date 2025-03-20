@@ -24,6 +24,33 @@ namespace WebApplication4
         protected global::System.Web.UI.ScriptManager scriptManager;
 
         /// <summary>
+        /// Controllo ee.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ee;
+
+        /// <summary>
+        /// Controllo er.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox er;
+
+        /// <summary>
+        /// Controllo uufu.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox uufu;
+
+        /// <summary>
         /// Controllo ClientUpdatepanel.
         /// </summary>
         /// <remarks>
@@ -411,6 +438,69 @@ namespace WebApplication4
         protected global::System.Web.UI.WebControls.TextBox ServerFisicoHostNameMailServer;
 
         /// <summary>
+        /// Controllo ServerFisicoCampo0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ServerFisicoCampo0;
+
+        /// <summary>
+        /// Controllo SSF.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel SSF;
+
+        /// <summary>
+        /// Controllo SSF_Nome.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SSF_Nome;
+
+        /// <summary>
+        /// Controllo SSF_Capacita.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SSF_Capacita;
+
+        /// <summary>
+        /// Controllo SSF_Note.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SSF_Note;
+
+        /// <summary>
+        /// Controllo AddSSF_Button.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddSSF_Button;
+
+        /// <summary>
+        /// Controllo ServerFisicoActionPanel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ServerFisicoActionPanel;
+
+        /// <summary>
         /// Controllo SaveServerFisico.
         /// </summary>
         /// <remarks>
@@ -427,15 +517,6 @@ namespace WebApplication4
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button deleteServerFisico;
-
-        /// <summary>
-        /// Controllo ServerFisicoCampo0.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ServerFisicoCampo0;
 
         /// <summary>
         /// Controllo btnToggleVisibility.
@@ -609,6 +690,69 @@ namespace WebApplication4
         protected global::System.Web.UI.WebControls.TextBox ServerVirtualeIP;
 
         /// <summary>
+        /// Controllo serverVirtualeCampo0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox serverVirtualeCampo0;
+
+        /// <summary>
+        /// Controllo SSV.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel SSV;
+
+        /// <summary>
+        /// Controllo SSV_Nome.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SSV_Nome;
+
+        /// <summary>
+        /// Controllo SSV_Capacita.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SSV_Capacita;
+
+        /// <summary>
+        /// Controllo SSV_Note.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SSV_Note;
+
+        /// <summary>
+        /// Controllo AddSSV_Button.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddSSV_Button;
+
+        /// <summary>
+        /// Controllo ServerVirtualeActionPanel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ServerVirtualeActionPanel;
+
+        /// <summary>
         /// Controllo SaveServerVirtuale.
         /// </summary>
         /// <remarks>
@@ -625,15 +769,6 @@ namespace WebApplication4
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button deleteServerVirtuale;
-
-        /// <summary>
-        /// Controllo serverVirtualeCampo0.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox serverVirtualeCampo0;
 
         /// <summary>
         /// Controllo btnToggleVisibilityServerVirtuale.
