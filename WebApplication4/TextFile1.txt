@@ -1,0 +1,182 @@
+﻿//validators
+<asp:Panel ID="OtherPanelForm" runat="server" CssClass="form-container">
+    <div class="form-row">
+        <div>
+            <label for="otherField">Altro Campo</label>
+            <asp:TextBox ID="otherField" runat="server" />
+            <asp:RequiredFieldValidator 
+                ID="rfvOtherField" 
+                runat="server" 
+                ControlToValidate="otherField" 
+                ErrorMessage="Compila questo campo per aggiornare" 
+                ForeColor="Red"
+                Display="Dynamic"
+                ValidationGroup="Group2" />
+        </div>
+        <div>
+            <asp:Button ID="otherUpdate" runat="server" Text="Aggiorna Altro" OnClick="otherUpdate_Click" CssClass="updateClient-btn" ValidationGroup="Group2" />
+        </div>
+    </div>
+</asp:Panel>
+
+
+// adding dinamically form-row
+<asp:Panel ID="StoragePanelContainer" runat="server" CssClass="form-container">
+    <!-- Qui verranno aggiunti i blocchi dinamici -->
+    <asp:PlaceHolder ID="phStorageRows" runat="server"></asp:PlaceHolder>
+    
+    <!-- Pulsante per aggiungere un nuovo blocco -->
+    <asp:Button ID="btnAddStorage" runat="server" Text="+" OnClick="btnAddStorage_Click" CssClass="add-storage-btn" />
+</asp:Panel>
+
+// Proprietà per gestire il conteggio dei controlli tramite Session
+protected int StorageRowCount
+{
+    get
+    {
+        if (Session["StorageRowCount"] == null)
+            Session["StorageRowCount"] = 0;
+        return (int)Session["StorageRowCount"];
+    }
+    set
+    {
+        Session["StorageRowCount"] = value;
+    }
+}
+
+protected void Page_Init(object sender, EventArgs e)
+{
+    // Ricrea i controlli dinamici ad ogni postback utilizzando il valore memorizzato in Session
+    for (int i = 1; i <= StorageRowCount; i++)
+    {
+        AddStorageRow(i);
+    }
+}
+
+protected void btnAddStorage_Click(object sender, EventArgs e)
+{
+    // Incrementa il contatore salvato nella Sessione
+    StorageRowCount++;
+    AddStorageRow(StorageRowCount);
+}
+
+private void AddStorageRow(int index)
+{
+    // Crea un Panel per rappresentare una riga dinamica (equivalente a un div con classe "form-row")
+    Panel pnlRow = new Panel();
+    pnlRow.CssClass = "form-row";
+
+    // Blocco per "Nome Storage"
+    Panel pnlNome = new Panel();
+    pnlNome.Controls.Add(new LiteralControl("<div>"));
+    pnlNome.Controls.Add(new LiteralControl($"<label for='txtNomeStorage_{index}'>Nome Storage: </label>"));
+    TextBox txtNome = new TextBox();
+    txtNome.ID = "txtNomeStorage_" + index;
+    pnlNome.Controls.Add(txtNome);
+    pnlNome.Controls.Add(new LiteralControl("</div>"));
+
+    // Blocco per "Capacità"
+    Panel pnlCapacita = new Panel();
+    pnlCapacita.Controls.Add(new LiteralControl("<div>"));
+    pnlCapacita.Controls.Add(new LiteralControl($"<label for='txtCapacita_{index}'>Capacità: </label>"));
+    TextBox txtCapacita = new TextBox();
+    txtCapacita.ID = "txtCapacita_" + index;
+    pnlCapacita.Controls.Add(txtCapacita);
+    pnlCapacita.Controls.Add(new LiteralControl("</div>"));
+
+    // Blocco per "Note"
+    Panel pnlNote = new Panel();
+    pnlNote.Controls.Add(new LiteralControl("<div>"));
+    pnlNote.Controls.Add(new LiteralControl($"<label for='txtNote_{index}'>Note: </label>"));
+    TextBox txtNote = new TextBox();
+    txtNote.ID = "txtNote_" + index;
+    pnlNote.Controls.Add(txtNote);
+    pnlNote.Controls.Add(new LiteralControl("</div>"));
+
+    // Aggiunge i tre blocchi al pannello della riga
+    pnlRow.Controls.Add(pnlNome);
+    pnlRow.Controls.Add(pnlCapacita);
+    pnlRow.Controls.Add(pnlNote);
+
+    // Aggiunge la riga al PlaceHolder
+    phStorageRows.Controls.Add(pnlRow);
+}
+
+private void AddStorageRow(int index)
+{
+    // Crea un Panel per rappresentare la riga dinamica
+    Panel pnlRow = new Panel();
+    pnlRow.CssClass = "form-row dynamic-row";
+    pnlRow.ID = "pnlStorageRow_" + index; // ID univoco per riferimento, se necessario
+
+    // Blocco per "Nome Storage"
+    Panel pnlNome = new Panel();
+    pnlNome.Controls.Add(new LiteralControl("<div>"));
+    pnlNome.Controls.Add(new LiteralControl($"<label for='txtNomeStorage_{index}'>Nome Storage: </label>"));
+    TextBox txtNome = new TextBox();
+    txtNome.ID = "txtNomeStorage_" + index;
+    pnlNome.Controls.Add(txtNome);
+    pnlNome.Controls.Add(new LiteralControl("</div>"));
+
+    // Blocco per "Capacità"
+    Panel pnlCapacita = new Panel();
+    pnlCapacita.Controls.Add(new LiteralControl("<div>"));
+    pnlCapacita.Controls.Add(new LiteralControl($"<label for='txtCapacita_{index}'>Capacità: </label>"));
+    TextBox txtCapacita = new TextBox();
+    txtCapacita.ID = "txtCapacita_" + index;
+    pnlCapacita.Controls.Add(txtCapacita);
+    pnlCapacita.Controls.Add(new LiteralControl("</div>"));
+
+    // Blocco per "Note"
+    Panel pnlNote = new Panel();
+    pnlNote.Controls.Add(new LiteralControl("<div>"));
+    pnlNote.Controls.Add(new LiteralControl($"<label for='txtNote_{index}'>Note: </label>"));
+    TextBox txtNote = new TextBox();
+    txtNote.ID = "txtNote_" + index;
+    pnlNote.Controls.Add(txtNote);
+    pnlNote.Controls.Add(new LiteralControl("</div>"));
+
+    // Aggiunge i tre blocchi al pannello della riga
+    pnlRow.Controls.Add(pnlNome);
+    pnlRow.Controls.Add(pnlCapacita);
+    pnlRow.Controls.Add(pnlNote);
+
+    // Aggiunge la croscetta per cancellare la riga
+    LiteralControl removeButton = new LiteralControl("<span class='remove-row' onclick='removeRow(this)'>&times;</span>");
+    pnlRow.Controls.Add(removeButton);
+
+    // Aggiunge la riga al PlaceHolder
+    phStorageRows.Controls.Add(pnlRow);
+}
+
+<script type="text/javascript">
+    // Funzione per rimuovere la riga quando si clicca sulla croscetta
+    function removeRow(el) {
+        // Trova il container principale della riga (ad esempio, l'elemento con classe "dynamic-row")
+        var row = el.closest('.dynamic-row');
+        if (row) {
+            row.parentNode.removeChild(row);
+        }
+    }
+</script>
+
+.dynamic-row {
+    position: relative; /* Necessario per posizionare la croscetta rispetto alla riga */
+    padding-right: 30px; /* Spazio per la croscetta */
+}
+
+/* Stile per la croscetta di rimozione */
+.remove-row {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #e74c3c; /* Rosso per evidenziare la cancellazione */
+    transition: color 0.3s ease;
+}
+
+.remove-row:hover {
+    color: #c0392b;
+}

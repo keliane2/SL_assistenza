@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Scripts\script.js" />
     <Content Include="style.css" />
+    <Content Include="TextFile1.txt" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
     <Content Include="WebForm2.aspx" />

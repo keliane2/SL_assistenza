@@ -51,35 +51,28 @@
                 document.getElementById('<%= btnToggleVisibilityStorageVirtuale.ClientID %>').click();
             }
             if (id == "addSSF") {
-                add_newFormRow('SSFForm');
                 document.getElementById('<%= AddSSF_Button.ClientID %>').click();
             }
             if (id == "addSSV") {
                 document.getElementById('<%= AddSSV_Button.ClientID %>').click();
             }
-        }
-
-        function add_newFormRow(id) {
-            document.getElementById('SSFForm').innerHTML = `<div class="form-row">
-                                                        <div>
-                                                            <label for="SSF_Nome">Nome Storage: </label>
-                                                            <asp:TextBox id="ee" runat="server" ></asp:TextBox>
-                                                        </div>
-                                                        <div>
-                                                            <label for="SSF_Capacita">Capacità: </label>
-                                                            <asp:TextBox id="er" runat="server" ></asp:TextBox>
-                                                        </div>
-                                                        <div>
-                                                            <label for="SSF_Note">Note: </label>
-                                                            <asp:TextBox id="uufu" runat="server"></asp:TextBox>
-                                                        </div>
-                                                    </div > `;
-
+            if (id == "AddSVSF") {
+                document.getElementById('<%= AddSVSF_Button.ClientID %>').click();
+            }
         }
 
         //confirm delete box
         function confirmDelete() {
             return confirm("Sei sicuro di voler eliminare questo cliente? potrebbe essere già collegato a qualche hardware o sever fisico");
+        }
+
+        //funzione per rimuovere la riga di aggiungimento di un SSF o SSV
+        function removeRow(el) {
+            // Trova il container principale della riga (ad esempio, l'elemento con classe "dynamic-row")
+            var row = el.closest('.dynamic-row');
+            if (row) {
+                row.parentNode.removeChild(row);
+            }
         }
 
     </script>
@@ -395,27 +388,126 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
 
                  <asp:Panel ID="SSF" runat="server" CssClass="form-container">
                      <div>
-                        <h2>Aggiungi Storage<span style="float:right; margin:-5px 10px 0 0;" ><i id="addSSF" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
+                        <h2>Aggiungi Storage Fisico<span style="float:right; margin:-5px 10px 0 0;" ><i id="addSSF" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
                         <div id="SSFForm">
-                            <div class="form-row">
+                            <div class="form-row dinamic-row">
                                 <div>
-                                    <label for="SSF_Nome">Nome Storage:</label>
-                                    <asp:TextBox id="SSF_Nome" runat="server" ></asp:TextBox>
+                                    <label for="SSF_Nome0">Nome Storage:</label>
+                                    <asp:TextBox id="SSF_Nome0" runat="server" ></asp:TextBox>
+                                    <asp:RequiredFieldValidator 
+                                        ID="SSFNomeValidator"
+                                        runat="server" 
+                                        ControlToValidate="SSF_Nome0" 
+                                        ErrorMessage="Inserisci il nome dello storage prima"
+                                        ForeColor="Red"
+                                        Display="Dynamic"
+                                        ValidationGroup="Group2" >
+                                    </asp:RequiredFieldValidator>
                                 </div>
                                 <div>
-                                    <label for="SSF_Capacita">Capacità: </label>
-                                    <asp:TextBox id="SSF_Capacita" runat="server" ></asp:TextBox>
+                                    <label for="SSF_Capacita0">Capacità: </label>
+                                    <asp:TextBox id="SSF_Capacita0" runat="server" ></asp:TextBox>
+                                    <asp:RequiredFieldValidator 
+                                        ID="SSFCapacitaValidator"
+                                        runat="server" 
+                                        ControlToValidate="SSF_Capacita0" 
+                                        ErrorMessage="Inserisci la capacita dello storage"
+                                        ForeColor="Red"
+                                        Display="Dynamic"
+                                        ValidationGroup="Group2" >
+                                    </asp:RequiredFieldValidator>
                                 </div>
                                 <div>
-                                    <label for="SSF_Note">Note: </label>
-                                    <asp:TextBox id="SSF_Note" runat="server"></asp:TextBox>
+                                    <label for="SSF_Note0">Note: </label>
+                                    <asp:TextBox id="SSF_Note0" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator 
+                                        ID="SSFNoteValidator"
+                                        runat="server" 
+                                        ControlToValidate="SSF_Note0" 
+                                        ErrorMessage="Inserisci le note"
+                                        ForeColor="Red"
+                                        Display="Dynamic"
+                                        ValidationGroup="Group2" >
+                                    </asp:RequiredFieldValidator>
                                 </div>
+                                <!--<span class='remove-row' onclick='removeRow(this)'>&times;</span>-->
                             </div>
-                        </div>
+                            <asp:PlaceHolder ID="SSFph" runat="server"></asp:PlaceHolder>
+                        </div>    
                     </div>
-                    <asp:Button ID="AddSSF_Button" runat="server" OnClick="AddSSF_Button_Click" style="display:none;" />
+                    <asp:Button ID="AddSSF_Button" runat="server" OnClick="AddSSF_Button_Click" ValidationGroup="Group2" style="display:none;" />
 
                  </asp:Panel>
+
+                <asp:Panel ID="SVSF" runat="server" CssClass="form-container">
+                    <div>
+                       <h2>Aggiungi Server Virtuale<span style="float:right; margin:-5px 10px 0 0;" ><i id="addSVSF" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
+                       <div id="SVSFForm">
+                           <div class="form-row dinamic-row">
+                               <div>
+                                   <label for="SVSF_Nome0">Nome Server:</label>
+                                   <asp:TextBox id="SVSF_Nome0" runat="server" ></asp:TextBox>
+                                   <asp:RequiredFieldValidator 
+                                       ID="SVSF_NomeValidator"
+                                       runat="server" 
+                                       ControlToValidate="SVSF_Nome0" 
+                                       ErrorMessage="Inserisci il nome dello storage prima"
+                                       ForeColor="Red"
+                                       Display="Dynamic"
+                                       ValidationGroup="Group2" >
+                                   </asp:RequiredFieldValidator>
+                               </div>
+                               <div>
+                                   <label for="SVSF_RAM0">RAM: </label>
+                                   <asp:TextBox id="SVSF_RAM0" runat="server" ></asp:TextBox>
+                                   <asp:RequiredFieldValidator 
+                                       ID="SVSF_RAMValidator"
+                                       runat="server" 
+                                       ControlToValidate="SVSF_RAM0" 
+                                       ErrorMessage="Inserisci la capacita dello storage"
+                                       ForeColor="Red"
+                                       Display="Dynamic"
+                                       ValidationGroup="Group2" >
+                                   </asp:RequiredFieldValidator>
+                               </div>
+                               <!--<span class='remove-row' onclick='removeRow(this)'>&times;</span>-->
+                           </div>
+                           <div class="form-row dinamic-row">
+                                <div>
+                                    <label for="SVSF_CPU0">CPU:</label>
+                                    <asp:TextBox id="SVSF_CPU0" runat="server" ></asp:TextBox>
+                                    <asp:RequiredFieldValidator 
+                                        ID="SVSF_CPUValidator"
+                                        runat="server" 
+                                        ControlToValidate="SVSF_CPU0" 
+                                        ErrorMessage="Inserisci il nome dello storage prima"
+                                        ForeColor="Red"
+                                        Display="Dynamic"
+                                        ValidationGroup="Group2" >
+                                    </asp:RequiredFieldValidator>
+                                </div>
+                                <div>
+                                    <label for="SVSF_IP0">IP: </label>
+                                    <asp:TextBox id="SVSF_IP0" runat="server" ></asp:TextBox>
+                                    <asp:RequiredFieldValidator 
+                                        ID="SVSF_IPValidator"
+                                        runat="server" 
+                                        ControlToValidate="SVSF_IP0" 
+                                        ErrorMessage="Inserisci la capacita dello storage"
+                                        ForeColor="Red"
+                                        Display="Dynamic"
+                                        ValidationGroup="Group2" >
+                                    </asp:RequiredFieldValidator>
+                                </div>
+                                <!--<span class='remove-row' onclick='removeRow(this)'>&times;</span>-->
+                            </div>
+                           <asp:PlaceHolder ID="SVSFph" runat="server"></asp:PlaceHolder>
+                       </div>    
+                   </div>
+                   <asp:Button ID="AddSVSF_Button" runat="server" OnClick="AddSVSF_Button_Click" ValidationGroup="Group2" style="display:none;" />
+
+                </asp:Panel>
+
 
                 <asp:Panel ID="ServerFisicoActionPanel" runat="server" CssClass="form-container">
                     <div class="form-row">
@@ -587,23 +679,52 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                      <div>
                         <h2>Aggiungi Storage Virtuale<span style="float:right; margin:-5px 10px 0 0;" ><i id="addSSV" style="font-weight: bolder; background-color: #f9f9f9; color:#16a085; font-size:32px; border: 2px solid #16a085; border-radius: 30%" class="bi bi-plus" onclick="showPanel(this.id)"></i></span></h2>
                         <div id="SSVForm">
-                            <div class="form-row">
+                            <div class="form-row dinamic-row">
                                 <div>
-                                    <label for="SSV_Nome">Nome Storage:</label>
-                                    <asp:TextBox id="SSV_Nome" runat="server" ></asp:TextBox>
+                                    <label for="SSV_Nome0">Nome Storage:</label>
+                                    <asp:TextBox id="SSV_Nome0" runat="server" ></asp:TextBox>
+                                    <asp:RequiredFieldValidator 
+                                        ID="RequiredFieldValidator1"
+                                        runat="server" 
+                                        ControlToValidate="SSV_Nome0" 
+                                        ErrorMessage="Inserisci il nome dello storage prima"
+                                        ForeColor="Red"
+                                        Display="Dynamic"
+                                        ValidationGroup="Group2" >
+                                    </asp:RequiredFieldValidator>
                                 </div>
                                 <div>
-                                    <label for="SSV_Capacita">Capacità: </label>
-                                    <asp:TextBox id="SSV_Capacita" runat="server" ></asp:TextBox>
+                                    <label for="SSV_Capacita0">Capacità: </label>
+                                    <asp:TextBox id="SSV_Capacita0" runat="server" ></asp:TextBox>
+                                    <asp:RequiredFieldValidator 
+                                        ID="RequiredFieldValidator2"
+                                        runat="server" 
+                                        ControlToValidate="SSV_Capacita0" 
+                                        ErrorMessage="Inserisci la capacita dello storage"
+                                        ForeColor="Red"
+                                        Display="Dynamic"
+                                        ValidationGroup="Group2" >
+                                    </asp:RequiredFieldValidator>
                                 </div>
                                 <div>
-                                    <label for="SSV_Note">Note: </label>
-                                    <asp:TextBox id="SSV_Note" runat="server"></asp:TextBox>
+                                    <label for="SSV_Note0">Note: </label>
+                                    <asp:TextBox id="SSV_Note0" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator 
+                                        ID="RequiredFieldValidator3"
+                                        runat="server" 
+                                        ControlToValidate="SSV_Note0" 
+                                        ErrorMessage="Inserisci le note"
+                                        ForeColor="Red"
+                                        Display="Dynamic"
+                                        ValidationGroup="Group2" >
+                                    </asp:RequiredFieldValidator>
                                 </div>
+                                <!--<span class='remove-row' onclick='removeRow(this)'>&times;</span>-->
                             </div>
-                        </div>
+                            <asp:PlaceHolder ID="SSVph" runat="server"></asp:PlaceHolder>
+                        </div>   
                     </div>
-                    <asp:Button ID="AddSSV_Button" runat="server" OnClick="AddSSV_Button_Click" style="display:none;" />
+                    <asp:Button ID="AddSSV_Button" runat="server" OnClick="AddSSV_Button_Click" ValidationGroup="Group2" style="display:none;" />
 
                  </asp:Panel>
 

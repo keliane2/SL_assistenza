@@ -24,33 +24,6 @@ namespace WebApplication4
         protected global::System.Web.UI.ScriptManager scriptManager;
 
         /// <summary>
-        /// Controllo ee.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ee;
-
-        /// <summary>
-        /// Controllo er.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox er;
-
-        /// <summary>
-        /// Controllo uufu.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox uufu;
-
-        /// <summary>
         /// Controllo ClientUpdatepanel.
         /// </summary>
         /// <remarks>
@@ -456,31 +429,67 @@ namespace WebApplication4
         protected global::System.Web.UI.WebControls.Panel SSF;
 
         /// <summary>
-        /// Controllo SSF_Nome.
+        /// Controllo SSF_Nome0.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SSF_Nome;
+        protected global::System.Web.UI.WebControls.TextBox SSF_Nome0;
 
         /// <summary>
-        /// Controllo SSF_Capacita.
+        /// Controllo SSFNomeValidator.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SSF_Capacita;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator SSFNomeValidator;
 
         /// <summary>
-        /// Controllo SSF_Note.
+        /// Controllo SSF_Capacita0.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SSF_Note;
+        protected global::System.Web.UI.WebControls.TextBox SSF_Capacita0;
+
+        /// <summary>
+        /// Controllo SSFCapacitaValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator SSFCapacitaValidator;
+
+        /// <summary>
+        /// Controllo SSF_Note0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SSF_Note0;
+
+        /// <summary>
+        /// Controllo SSFNoteValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator SSFNoteValidator;
+
+        /// <summary>
+        /// Controllo SSFph.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SSFph;
 
         /// <summary>
         /// Controllo AddSSF_Button.
@@ -490,6 +499,105 @@ namespace WebApplication4
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button AddSSF_Button;
+
+        /// <summary>
+        /// Controllo SVSF.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel SVSF;
+
+        /// <summary>
+        /// Controllo SVSF_Nome0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SVSF_Nome0;
+
+        /// <summary>
+        /// Controllo SVSF_NomeValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator SVSF_NomeValidator;
+
+        /// <summary>
+        /// Controllo SVSF_RAM0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SVSF_RAM0;
+
+        /// <summary>
+        /// Controllo SVSF_RAMValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator SVSF_RAMValidator;
+
+        /// <summary>
+        /// Controllo SVSF_CPU0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SVSF_CPU0;
+
+        /// <summary>
+        /// Controllo SVSF_CPUValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator SVSF_CPUValidator;
+
+        /// <summary>
+        /// Controllo SVSF_IP0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SVSF_IP0;
+
+        /// <summary>
+        /// Controllo SVSF_IPValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator SVSF_IPValidator;
+
+        /// <summary>
+        /// Controllo SVSFph.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SVSFph;
+
+        /// <summary>
+        /// Controllo AddSVSF_Button.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddSVSF_Button;
 
         /// <summary>
         /// Controllo ServerFisicoActionPanel.
@@ -708,31 +816,67 @@ namespace WebApplication4
         protected global::System.Web.UI.WebControls.Panel SSV;
 
         /// <summary>
-        /// Controllo SSV_Nome.
+        /// Controllo SSV_Nome0.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SSV_Nome;
+        protected global::System.Web.UI.WebControls.TextBox SSV_Nome0;
 
         /// <summary>
-        /// Controllo SSV_Capacita.
+        /// Controllo RequiredFieldValidator1.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SSV_Capacita;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 
         /// <summary>
-        /// Controllo SSV_Note.
+        /// Controllo SSV_Capacita0.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SSV_Note;
+        protected global::System.Web.UI.WebControls.TextBox SSV_Capacita0;
+
+        /// <summary>
+        /// Controllo RequiredFieldValidator2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+
+        /// <summary>
+        /// Controllo SSV_Note0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SSV_Note0;
+
+        /// <summary>
+        /// Controllo RequiredFieldValidator3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+
+        /// <summary>
+        /// Controllo SSVph.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SSVph;
 
         /// <summary>
         /// Controllo AddSSV_Button.

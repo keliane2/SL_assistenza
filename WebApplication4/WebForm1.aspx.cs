@@ -721,13 +721,7 @@ namespace WebApplication4
         {
             if (clientCampo0.Text != "")
             {
-                int capacita;
-                if (int.TryParse(SSF_Capacita.Text, out capacita))  // Assicurati di fare il parsing corretto
-                {
-                    // Aggiungi il nuovo StorageFisico alla lista
-                    this.StorageFisicoList.Add(new StorageFisico(SSF_Nome.Text, capacita, SSF_Note.Text));
-                    Session["StorageFisicoList"] = StorageFisicoList;
-                }
+                
                 try
                 {
                     l_myConnection.Open();
@@ -788,18 +782,27 @@ namespace WebApplication4
 
                                 if (this.StorageFisicoList != null)
                                 {
-                                    foreach (StorageFisico storage in this.StorageFisicoList)
+                                    for (int i = 0; i <= SSFRowCount; i++)
                                     {
+                                        string nomeTextBoxId = "SSF_Nome" + i;
+                                        string capacitaTextBoxId = "SSF_Capacita" + i;
+                                        string noteTextBoxId = "SSF_Note" + i;
+
+                                        TextBox txtNome = (TextBox)SSFph.FindControl(nomeTextBoxId);
+                                        TextBox txtCapacita = (TextBox)SSFph.FindControl(capacitaTextBoxId);
+                                        TextBox txtNote = (TextBox)SSFph.FindControl(noteTextBoxId);
+
                                         myCommand = new SqlCommand("INSERT INTO STORAGE VALUES(@STORAGE_Nome,@STORAGE_Capacita,@STORAGE_Note,@STORAGE_ServerFisicoId, @STORAGE_ServerVirtualeId)", l_myConnection);
-                                        myCommand.Parameters.AddWithValue("@STORAGE_Nome", storage.Nome.ToString());
-                                        myCommand.Parameters.AddWithValue("@STORAGE_Capacita", storage.Capacita);
-                                        myCommand.Parameters.AddWithValue("@STORAGE_Note", storage.Note.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Nome", txtNome.Text.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Capacita", txtCapacita.Text);
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Note", txtNote.Text.ToString());
                                         myCommand.Parameters.AddWithValue("@STORAGE_ServerFisicoId", ServerFisicoCampo0.Text.ToString());
                                         myCommand.Parameters.AddWithValue("@STORAGE_ServerVirtualeId", DBNull.Value);
 
                                         myCommand.ExecuteNonQuery();
 
                                     }
+                                    Session["SSFRowCount"] = null;
                                 }
                             }
                         }
@@ -837,6 +840,9 @@ namespace WebApplication4
             if (clientCampo0.Text != "")
             {
                 pulisci_ServerFisico();
+                SSF_Nome0.Text = "";
+                SSF_Capacita0.Text = "";
+                SSF_Note0.Text = "";
                 ServerFisicoPanel.Visible = true;
                 SaveServerFisico.Enabled = true;
                 deleteServerFisico.Enabled = false;
@@ -921,13 +927,6 @@ namespace WebApplication4
         {
             if (clientCampo0.Text != "" && ServerFisicoCampo0.Text != "")
             {
-                int capacita;
-                if (int.TryParse(SSV_Capacita.Text, out capacita))  // Assicurati di fare il parsing corretto
-                {
-                    // Aggiungi il nuovo StorageFisico alla lista
-                    StorageVirtualeList.Add(new StorageVirtuale(SSV_Nome.Text, capacita, SSV_Note.Text));
-                    Session["StorageVirtualeList"] = StorageVirtualeList;
-                }
                 try
                 {
                     l_myConnection.Open();
@@ -972,18 +971,27 @@ namespace WebApplication4
 
                                 if (this.StorageVirtualeList != null)
                                 {
-                                    foreach (StorageVirtuale storage in this.StorageVirtualeList)
+                                    for (int i = 0; i <= SSVRowCount; i++)
                                     {
+                                        string nomeTextBoxId = "SSV_Nome" + i;
+                                        string capacitaTextBoxId = "SSV_Capacita" + i;
+                                        string noteTextBoxId = "SSV_Note" + i;
+
+                                        TextBox txtNome = (TextBox)SSVph.FindControl(nomeTextBoxId);
+                                        TextBox txtCapacita = (TextBox)SSVph.FindControl(capacitaTextBoxId);
+                                        TextBox txtNote = (TextBox)SSVph.FindControl(noteTextBoxId);
+
                                         myCommand = new SqlCommand("INSERT INTO STORAGE VALUES(@STORAGE_Nome,@STORAGE_Capacita,@STORAGE_Note,@STORAGE_ServerFisicoId, @STORAGE_ServerVirtualeId)", l_myConnection);
-                                        myCommand.Parameters.AddWithValue("@STORAGE_Nome", storage.Nome.ToString());
-                                        myCommand.Parameters.AddWithValue("@STORAGE_Capacita", storage.Capacita);
-                                        myCommand.Parameters.AddWithValue("@STORAGE_Note", storage.Note.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Nome", txtNome.Text.ToString());
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Capacita", txtCapacita.Text);
+                                        myCommand.Parameters.AddWithValue("@STORAGE_Note", txtNote.Text.ToString());
                                         myCommand.Parameters.AddWithValue("@STORAGE_ServerFisicoId", DBNull.Value);
                                         myCommand.Parameters.AddWithValue("@STORAGE_ServerVirtualeId", serverVirtualeCampo0.Text.ToString());
-
-                                        myCommand.ExecuteNonQuery();
+                                        myCommand.ExecuteNonQuery(); 
 
                                     }
+
+                                    Session["SSVRowCount"] = null;
                                 }
                             }
                         }
@@ -1073,10 +1081,14 @@ namespace WebApplication4
             if (clientCampo0.Text != "" && ServerFisicoCampo0.Text != "")
             {
                 pulisci_ServerVirtuale();
+                SSV_Nome0.Text = "";
+                SSV_Capacita0.Text = "";
+                SSV_Note0.Text = "";
                 ServerVirtualePanelForm.Visible = true;
                 SaveServerVirtuale.Enabled = true;
                 deleteServerVirtuale.Enabled = false;
                 ServerVirtualeActionPanel.Visible = true;
+                StorageVirtualeUpdatepanel.Visible = false;
                 SSV.Visible = true;
             }
         }
@@ -1495,33 +1507,6 @@ namespace WebApplication4
             StorageVirtualeNote.Text = "";
         }
 
-        protected void AddSSF_Button_Click(object sender, EventArgs e)
-        {
-
-            int capacita;
-            if (int.TryParse(SSF_Capacita.Text, out capacita))
-            {
-                StorageFisicoList.Add(new StorageFisico(SSF_Nome.Text, capacita, SSF_Note.Text));
-                Session["StorageFisicoList"] = StorageFisicoList;
-                SSF_Nome.Text = "";
-                SSF_Capacita.Text = "";
-                SSF_Note.Text = "";
-            }
-        }
-
-        protected void AddSSV_Button_Click(object sender, EventArgs e)
-        {
-            int capacita;
-            if (int.TryParse(SSV_Capacita.Text, out capacita))
-            {
-                StorageVirtualeList.Add(new StorageVirtuale(SSV_Nome.Text, capacita, SSV_Note.Text));
-                Session["StorageVirtualeList"] = StorageVirtualeList;
-                SSV_Nome.Text = "";
-                SSV_Capacita.Text = "";
-                SSV_Note.Text = "";
-            }
-        }
-
         protected void btnToggleVisibilityStorageVirtuale_Click(object sender, EventArgs e)
         {
             if (serverVirtualeCampo0.Text != "")
@@ -1542,6 +1527,222 @@ namespace WebApplication4
                     StorageVirtualeCapacita.Text = "";
                 }
             }
+        }
+
+
+        // Proprietà per gestire il conteggio dei controlli tramite Session
+        protected int SSFRowCount
+        {
+            get
+            {
+                if (Session["SSFRowCount"] == null)
+                    Session["SSFRowCount"] = 0;
+                return (int)Session["SSFRowCount"];
+            }
+            set
+            {
+                Session["SSFRowCount"] = value;
+            }
+        }
+        protected int SSVRowCount
+        {
+            get
+            {
+                if (Session["SSVRowCount"] == null)
+                    Session["SSVRowCount"] = 0;
+                return (int)Session["SSVRowCount"];
+            }
+            set
+            {
+                Session["SSVRowCount"] = value;
+            }
+        }
+
+        protected int SVSFRowCount
+        {
+            get
+            {
+                if (Session["SVSFRowCount"] == null)
+                    Session["SVSFRowCount"] = 0;
+                return (int)Session["SVSFRowCount"];
+            }
+            set
+            {
+                Session["SVSFRowCount"] = value;
+            }
+        }
+
+
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            // Ricrea i controlli dinamici ad ogni postback utilizzando il valore memorizzato in Session
+            for (int i = 1; i <= SSFRowCount; i++)
+            {
+                AddStorageRow(i, "SSF");
+            }
+            for (int i = 1; i <= SSVRowCount; i++)
+            {
+                AddStorageRow(i, "SSV");
+            }
+            for (int i = 1; i <= SVSFRowCount; i++)
+            {
+                AddStorageRow(i, "SVSF");
+            }
+        }
+
+        protected void AddSSF_Button_Click(object sender, EventArgs e)
+        {
+            // Incrementa il contatore salvato nella Sessione
+            SSFRowCount++;
+            AddStorageRow(SSFRowCount, "SSF");
+        }
+
+        protected void AddSSV_Button_Click(object sender, EventArgs e)
+        {
+            // Incrementa il contatore salvato nella Sessione
+            SSVRowCount++;
+            AddStorageRow(SSVRowCount, "SSV");
+        }
+
+        protected void AddSVSF_Button_Click(object sender, EventArgs e)
+        {
+            // Incrementa il contatore salvato nella Sessione
+            SSVRowCount++;
+            AddServerRow(SSVRowCount, "SVSF");
+        }
+
+        private void AddStorageRow(int index, string ID_base)
+        {
+
+            ColorConverter colorConverter = new ColorConverter();
+            Color red = (Color)colorConverter.ConvertFromString("Red");
+
+            // Crea un Panel per rappresentare una riga dinamica (equivalente a un div con classe "form-row")
+            Panel pnlRow = new Panel();
+            pnlRow.CssClass = "form-row";
+
+            // Blocco per "Nome Storage"
+            Panel pnlNome = new Panel();
+            //pnlNome.Controls.Add(new LiteralControl("<div>"));
+            pnlNome.Controls.Add(new LiteralControl($"<label for='{ID_base}_Nome{index}'>Nome Storage: </label>"));
+            TextBox txtNome = new TextBox();
+            txtNome.ID = ID_base+"_Nome" + index;
+            pnlNome.Controls.Add(txtNome);
+            RequiredFieldValidator validatorNome = new RequiredFieldValidator();
+            validatorNome.ID = txtNome.ID + "Validator";
+            validatorNome.ControlToValidate = txtNome.ID;
+            validatorNome.ErrorMessage = "Inserisci il nome dello storage prima";
+            validatorNome.ForeColor = red;
+            validatorNome.Display = ValidatorDisplay.Dynamic;
+            validatorNome.ValidationGroup = "Group2";
+            pnlNome.Controls.Add(validatorNome);
+            //pnlNome.Controls.Add(new LiteralControl("</div>"));
+
+
+            // Blocco per "Capacità"
+            Panel pnlCapacita = new Panel();
+            pnlCapacita.Controls.Add(new LiteralControl($"<label for='{ID_base}_Capacita{index}'>Capacità: </label>"));
+            TextBox txtCapacita = new TextBox();
+            txtCapacita.ID = ID_base + "_Capacita" + index;
+            pnlCapacita.Controls.Add(txtCapacita);
+            RequiredFieldValidator validatorCapacita = new RequiredFieldValidator();
+            validatorCapacita.ID = txtCapacita.ID + "Validator";
+            validatorCapacita.ControlToValidate = txtCapacita.ID;
+            validatorCapacita.ErrorMessage = "Inserisci la capacita dello storage";
+            validatorCapacita.ForeColor = red;
+            validatorCapacita.Display = ValidatorDisplay.Dynamic;
+            validatorCapacita.ValidationGroup = "Group2";
+            pnlCapacita.Controls.Add(validatorCapacita);
+
+            // Blocco per "Note"
+            Panel pnlNote = new Panel();
+            pnlNote.Controls.Add(new LiteralControl($"<label for='{ID_base}_Note{index}'>Note: </label>"));
+            TextBox txtNote = new TextBox();
+            txtNote.ID = ID_base + "_Note" + index;
+            pnlNote.Controls.Add(txtNote);
+            RequiredFieldValidator validatorNote = new RequiredFieldValidator();
+            validatorNote.ID = txtNote.ID + "validator";
+            validatorNote.ControlToValidate = txtNote.ID;
+            validatorNote.ErrorMessage = "Inserisci le note";
+            validatorNote.ForeColor = red;
+            validatorNote.Display = ValidatorDisplay.Dynamic;
+            validatorNote.ValidationGroup = "Group2";
+            pnlNote.Controls.Add(validatorNote);
+
+            // Aggiunge i tre blocchi al pannello della riga
+            pnlRow.Controls.Add(pnlNome);
+            pnlRow.Controls.Add(pnlCapacita);
+            pnlRow.Controls.Add(pnlNote);
+
+            // Aggiunge la riga al PlaceHolder
+            SSFph.Controls.Add(pnlRow);
+        }
+
+        private void AddServerRow(int index, string ID_base)
+        {
+
+            ColorConverter colorConverter = new ColorConverter();
+            Color red = (Color)colorConverter.ConvertFromString("Red");
+
+            // Crea un Panel per rappresentare una riga dinamica (equivalente a un div con classe "form-row")
+            Panel pnlRow = new Panel();
+            pnlRow.CssClass = "form-row";
+
+            // Blocco per "Nome Storage"
+            Panel pnlNome = new Panel();
+            //pnlNome.Controls.Add(new LiteralControl("<div>"));
+            pnlNome.Controls.Add(new LiteralControl($"<label for='{ID_base}_Nome{index}'>Nome Storage: </label>"));
+            TextBox txtNome = new TextBox();
+            txtNome.ID = ID_base + "_Nome" + index;
+            pnlNome.Controls.Add(txtNome);
+            RequiredFieldValidator validatorNome = new RequiredFieldValidator();
+            validatorNome.ID = txtNome.ID + "Validator";
+            validatorNome.ControlToValidate = txtNome.ID;
+            validatorNome.ErrorMessage = "Inserisci il nome dello storage prima";
+            validatorNome.ForeColor = red;
+            validatorNome.Display = ValidatorDisplay.Dynamic;
+            validatorNome.ValidationGroup = "Group2";
+            pnlNome.Controls.Add(validatorNome);
+            //pnlNome.Controls.Add(new LiteralControl("</div>"));
+
+
+            // Blocco per "Capacità"
+            Panel pnlCapacita = new Panel();
+            pnlCapacita.Controls.Add(new LiteralControl($"<label for='{ID_base}_Capacita{index}'>Capacità: </label>"));
+            TextBox txtCapacita = new TextBox();
+            txtCapacita.ID = ID_base + "_Capacita" + index;
+            pnlCapacita.Controls.Add(txtCapacita);
+            RequiredFieldValidator validatorCapacita = new RequiredFieldValidator();
+            validatorCapacita.ID = txtCapacita.ID + "Validator";
+            validatorCapacita.ControlToValidate = txtCapacita.ID;
+            validatorCapacita.ErrorMessage = "Inserisci la capacita dello storage";
+            validatorCapacita.ForeColor = red;
+            validatorCapacita.Display = ValidatorDisplay.Dynamic;
+            validatorCapacita.ValidationGroup = "Group2";
+            pnlCapacita.Controls.Add(validatorCapacita);
+
+            // Blocco per "Note"
+            Panel pnlNote = new Panel();
+            pnlNote.Controls.Add(new LiteralControl($"<label for='{ID_base}_Note{index}'>Note: </label>"));
+            TextBox txtNote = new TextBox();
+            txtNote.ID = ID_base + "_Note" + index;
+            pnlNote.Controls.Add(txtNote);
+            RequiredFieldValidator validatorNote = new RequiredFieldValidator();
+            validatorNote.ID = txtNote.ID + "validator";
+            validatorNote.ControlToValidate = txtNote.ID;
+            validatorNote.ErrorMessage = "Inserisci le note";
+            validatorNote.ForeColor = red;
+            validatorNote.Display = ValidatorDisplay.Dynamic;
+            validatorNote.ValidationGroup = "Group2";
+            pnlNote.Controls.Add(validatorNote);
+
+            // Aggiunge i tre blocchi al pannello della riga
+            pnlRow.Controls.Add(pnlNome);
+            pnlRow.Controls.Add(pnlCapacita);
+            pnlRow.Controls.Add(pnlNote);
+
+            // Aggiunge la riga al PlaceHolder
+            SSFph.Controls.Add(pnlRow);
         }
 
     }
