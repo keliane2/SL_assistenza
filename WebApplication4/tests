@@ -101,3 +101,83 @@ private void AddStorageRow(int index)
     // Aggiunge la riga al PlaceHolder
     phStorageRows.Controls.Add(pnlRow);
 }
+
+private void AddStorageRow(int index)
+{
+    // Crea un Panel per rappresentare la riga dinamica
+    Panel pnlRow = new Panel();
+    pnlRow.CssClass = "form-row dynamic-row";
+    pnlRow.ID = "pnlStorageRow_" + index; // ID univoco per riferimento, se necessario
+
+    // Blocco per "Nome Storage"
+    Panel pnlNome = new Panel();
+    pnlNome.Controls.Add(new LiteralControl("<div>"));
+    pnlNome.Controls.Add(new LiteralControl($"<label for='txtNomeStorage_{index}'>Nome Storage: </label>"));
+    TextBox txtNome = new TextBox();
+    txtNome.ID = "txtNomeStorage_" + index;
+    pnlNome.Controls.Add(txtNome);
+    pnlNome.Controls.Add(new LiteralControl("</div>"));
+
+    // Blocco per "Capacità"
+    Panel pnlCapacita = new Panel();
+    pnlCapacita.Controls.Add(new LiteralControl("<div>"));
+    pnlCapacita.Controls.Add(new LiteralControl($"<label for='txtCapacita_{index}'>Capacità: </label>"));
+    TextBox txtCapacita = new TextBox();
+    txtCapacita.ID = "txtCapacita_" + index;
+    pnlCapacita.Controls.Add(txtCapacita);
+    pnlCapacita.Controls.Add(new LiteralControl("</div>"));
+
+    // Blocco per "Note"
+    Panel pnlNote = new Panel();
+    pnlNote.Controls.Add(new LiteralControl("<div>"));
+    pnlNote.Controls.Add(new LiteralControl($"<label for='txtNote_{index}'>Note: </label>"));
+    TextBox txtNote = new TextBox();
+    txtNote.ID = "txtNote_" + index;
+    pnlNote.Controls.Add(txtNote);
+    pnlNote.Controls.Add(new LiteralControl("</div>"));
+
+    // Aggiunge i tre blocchi al pannello della riga
+    pnlRow.Controls.Add(pnlNome);
+    pnlRow.Controls.Add(pnlCapacita);
+    pnlRow.Controls.Add(pnlNote);
+
+    // Aggiunge la croscetta per cancellare la riga
+    LiteralControl removeButton = new LiteralControl("<span class='remove-row' onclick='removeRow(this)'>&times;</span>");
+    pnlRow.Controls.Add(removeButton);
+
+    // Aggiunge la riga al PlaceHolder
+    phStorageRows.Controls.Add(pnlRow);
+}
+
+<script type="text/javascript">
+    // Funzione per rimuovere la riga quando si clicca sulla croscetta
+    function removeRow(el) {
+        // Trova il container principale della riga (ad esempio, l'elemento con classe "dynamic-row")
+        var row = el.closest('.dynamic-row');
+        if (row) {
+            row.parentNode.removeChild(row);
+        }
+    }
+</script>
+
+.dynamic-row {
+    position: relative; /* Necessario per posizionare la croscetta rispetto alla riga */
+    padding-right: 30px; /* Spazio per la croscetta */
+}
+
+/* Stile per la croscetta di rimozione */
+.remove-row {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #e74c3c; /* Rosso per evidenziare la cancellazione */
+    transition: color 0.3s ease;
+}
+
+.remove-row:hover {
+    color: #c0392b;
+}
+
