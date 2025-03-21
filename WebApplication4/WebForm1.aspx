@@ -451,7 +451,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                        ID="SVSF_NomeValidator"
                                        runat="server" 
                                        ControlToValidate="SVSF_Nome0" 
-                                       ErrorMessage="Inserisci il nome dello storage prima"
+                                       ErrorMessage="Inserisci il nome del server virtuale"
                                        ForeColor="Red"
                                        Display="Dynamic"
                                        ValidationGroup="Group2" >
@@ -464,7 +464,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                        ID="SVSF_RAMValidator"
                                        runat="server" 
                                        ControlToValidate="SVSF_RAM0" 
-                                       ErrorMessage="Inserisci la capacita dello storage"
+                                       ErrorMessage="Inserisci la RAM virtuale"
                                        ForeColor="Red"
                                        Display="Dynamic"
                                        ValidationGroup="Group2" >
@@ -480,7 +480,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                         ID="SVSF_CPUValidator"
                                         runat="server" 
                                         ControlToValidate="SVSF_CPU0" 
-                                        ErrorMessage="Inserisci il nome dello storage prima"
+                                        ErrorMessage="Inserisci la CPU"
                                         ForeColor="Red"
                                         Display="Dynamic"
                                         ValidationGroup="Group2" >
@@ -493,7 +493,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                         ID="SVSF_IPValidator"
                                         runat="server" 
                                         ControlToValidate="SVSF_IP0" 
-                                        ErrorMessage="Inserisci la capacita dello storage"
+                                        ErrorMessage="Inserisci l'IP del server "
                                         ForeColor="Red"
                                         Display="Dynamic"
                                         ValidationGroup="Group2" >

@@ -1626,73 +1626,6 @@ namespace WebApplication4
             //pnlNome.Controls.Add(new LiteralControl("<div>"));
             pnlNome.Controls.Add(new LiteralControl($"<label for='{ID_base}_Nome{index}'>Nome Storage: </label>"));
             TextBox txtNome = new TextBox();
-            txtNome.ID = ID_base+"_Nome" + index;
-            pnlNome.Controls.Add(txtNome);
-            RequiredFieldValidator validatorNome = new RequiredFieldValidator();
-            validatorNome.ID = txtNome.ID + "Validator";
-            validatorNome.ControlToValidate = txtNome.ID;
-            validatorNome.ErrorMessage = "Inserisci il nome dello storage prima";
-            validatorNome.ForeColor = red;
-            validatorNome.Display = ValidatorDisplay.Dynamic;
-            validatorNome.ValidationGroup = "Group2";
-            pnlNome.Controls.Add(validatorNome);
-            //pnlNome.Controls.Add(new LiteralControl("</div>"));
-
-
-            // Blocco per "Capacità"
-            Panel pnlCapacita = new Panel();
-            pnlCapacita.Controls.Add(new LiteralControl($"<label for='{ID_base}_Capacita{index}'>Capacità: </label>"));
-            TextBox txtCapacita = new TextBox();
-            txtCapacita.ID = ID_base + "_Capacita" + index;
-            pnlCapacita.Controls.Add(txtCapacita);
-            RequiredFieldValidator validatorCapacita = new RequiredFieldValidator();
-            validatorCapacita.ID = txtCapacita.ID + "Validator";
-            validatorCapacita.ControlToValidate = txtCapacita.ID;
-            validatorCapacita.ErrorMessage = "Inserisci la capacita dello storage";
-            validatorCapacita.ForeColor = red;
-            validatorCapacita.Display = ValidatorDisplay.Dynamic;
-            validatorCapacita.ValidationGroup = "Group2";
-            pnlCapacita.Controls.Add(validatorCapacita);
-
-            // Blocco per "Note"
-            Panel pnlNote = new Panel();
-            pnlNote.Controls.Add(new LiteralControl($"<label for='{ID_base}_Note{index}'>Note: </label>"));
-            TextBox txtNote = new TextBox();
-            txtNote.ID = ID_base + "_Note" + index;
-            pnlNote.Controls.Add(txtNote);
-            RequiredFieldValidator validatorNote = new RequiredFieldValidator();
-            validatorNote.ID = txtNote.ID + "validator";
-            validatorNote.ControlToValidate = txtNote.ID;
-            validatorNote.ErrorMessage = "Inserisci le note";
-            validatorNote.ForeColor = red;
-            validatorNote.Display = ValidatorDisplay.Dynamic;
-            validatorNote.ValidationGroup = "Group2";
-            pnlNote.Controls.Add(validatorNote);
-
-            // Aggiunge i tre blocchi al pannello della riga
-            pnlRow.Controls.Add(pnlNome);
-            pnlRow.Controls.Add(pnlCapacita);
-            pnlRow.Controls.Add(pnlNote);
-
-            // Aggiunge la riga al PlaceHolder
-            SSFph.Controls.Add(pnlRow);
-        }
-
-        private void AddServerRow(int index, string ID_base)
-        {
-
-            ColorConverter colorConverter = new ColorConverter();
-            Color red = (Color)colorConverter.ConvertFromString("Red");
-
-            // Crea un Panel per rappresentare una riga dinamica (equivalente a un div con classe "form-row")
-            Panel pnlRow = new Panel();
-            pnlRow.CssClass = "form-row";
-
-            // Blocco per "Nome Storage"
-            Panel pnlNome = new Panel();
-            //pnlNome.Controls.Add(new LiteralControl("<div>"));
-            pnlNome.Controls.Add(new LiteralControl($"<label for='{ID_base}_Nome{index}'>Nome Storage: </label>"));
-            TextBox txtNome = new TextBox();
             txtNome.ID = ID_base + "_Nome" + index;
             pnlNome.Controls.Add(txtNome);
             RequiredFieldValidator validatorNome = new RequiredFieldValidator();
@@ -1728,7 +1661,7 @@ namespace WebApplication4
             txtNote.ID = ID_base + "_Note" + index;
             pnlNote.Controls.Add(txtNote);
             RequiredFieldValidator validatorNote = new RequiredFieldValidator();
-            validatorNote.ID = txtNote.ID + "validator";
+            validatorNote.ID = txtNote.ID + "Validator";
             validatorNote.ControlToValidate = txtNote.ID;
             validatorNote.ErrorMessage = "Inserisci le note";
             validatorNote.ForeColor = red;
@@ -1740,6 +1673,87 @@ namespace WebApplication4
             pnlRow.Controls.Add(pnlNome);
             pnlRow.Controls.Add(pnlCapacita);
             pnlRow.Controls.Add(pnlNote);
+
+            // Aggiunge la riga al PlaceHolder
+            SSFph.Controls.Add(pnlRow);
+        }
+
+        private void AddServerRow(int index, string ID_base)
+        {
+
+            ColorConverter colorConverter = new ColorConverter();
+            Color red = (Color)colorConverter.ConvertFromString("Red");
+
+            // Crea un Panel per rappresentare una riga dinamica (equivalente a un div con classe "form-row")
+            Panel pnlRow = new Panel();
+            pnlRow.CssClass = "form-row";
+
+            // Blocco per "Nome Server"
+            Panel pnlNome = new Panel();
+            pnlNome.Controls.Add(new LiteralControl($"<label for='{ID_base}_Nome{index}'>Nome Storage: </label>"));
+            TextBox txtNome = new TextBox();
+            txtNome.ID = ID_base + "_Nome" + index;
+            pnlNome.Controls.Add(txtNome);
+            RequiredFieldValidator validatorNome = new RequiredFieldValidator();
+            validatorNome.ID = txtNome.ID + "Validator";
+            validatorNome.ControlToValidate = txtNome.ID;
+            validatorNome.ErrorMessage = "Inserisci il nome del server virtuale";
+            validatorNome.ForeColor = red;
+            validatorNome.Display = ValidatorDisplay.Dynamic;
+            validatorNome.ValidationGroup = "Group2";
+            pnlNome.Controls.Add(validatorNome);
+
+
+            // Blocco per "RAM"
+            Panel pnlRAM = new Panel();
+            pnlRAM.Controls.Add(new LiteralControl($"<label for='{ID_base}_RAM{index}'>RAM: </label>"));
+            TextBox txtRAM = new TextBox();
+            txtRAM.ID = ID_base + "RAM" + index;
+            pnlRAM.Controls.Add(txtRAM);
+            RequiredFieldValidator validatorRAM = new RequiredFieldValidator();
+            validatorRAM.ID = txtRAM.ID + "Validator";
+            validatorRAM.ControlToValidate = txtRAM.ID;
+            validatorRAM.ErrorMessage = "Inserisci la RAM del server virtuale";
+            validatorRAM.ForeColor = red;
+            validatorRAM.Display = ValidatorDisplay.Dynamic;
+            validatorRAM.ValidationGroup = "Group2";
+            pnlRAM.Controls.Add(validatorRAM);
+
+            // Blocco per "CPU"
+            Panel pnlCPU = new Panel();
+            pnlCPU.Controls.Add(new LiteralControl($"<label for='{ID_base}_CPU{index}'>CPU: </label>"));
+            TextBox txtCPU = new TextBox();
+            txtCPU.ID = ID_base + "_CPU" + index;
+            pnlCPU.Controls.Add(txtCPU);
+            RequiredFieldValidator validatorCPU = new RequiredFieldValidator();
+            validatorCPU.ID = txtCPU.ID + "Validator";
+            validatorCPU.ControlToValidate = txtCPU.ID;
+            validatorCPU.ErrorMessage = "Inserisci la CPU";
+            validatorCPU.ForeColor = red;
+            validatorCPU.Display = ValidatorDisplay.Dynamic;
+            validatorCPU.ValidationGroup = "Group2";
+            pnlCPU.Controls.Add(validatorCPU);
+
+            // Blocco per "IP"
+            Panel pnlIP = new Panel();
+            pnlIP.Controls.Add(new LiteralControl($"<label for='{ID_base}_IP{index}'>IP: </label>"));
+            TextBox txtIP = new TextBox();
+            txtIP.ID = ID_base + "_IP" + index;
+            pnlCPU.Controls.Add(txtCPU);
+            RequiredFieldValidator validatorIP = new RequiredFieldValidator();
+            validatorIP.ID = txtCPU.ID + "Validator";
+            validatorIP.ControlToValidate = txtCPU.ID;
+            validatorIP.ErrorMessage = "Inserisci l'IP del server";
+            validatorIP.ForeColor = red;
+            validatorIP.Display = ValidatorDisplay.Dynamic;
+            validatorIP.ValidationGroup = "Group2";
+            pnlIP.Controls.Add(validatorIP); 
+
+            // Aggiunge i tre blocchi al pannello della riga
+            pnlRow.Controls.Add(pnlNome);
+            pnlRow.Controls.Add(pnlRAM);
+            pnlRow.Controls.Add(pnlCPU);
+            PN
 
             // Aggiunge la riga al PlaceHolder
             SSFph.Controls.Add(pnlRow);
