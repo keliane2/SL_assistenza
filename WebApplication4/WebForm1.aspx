@@ -56,7 +56,7 @@
             if (id == "addSSV") {
                 document.getElementById('<%= AddSSV_Button.ClientID %>').click();
             }
-            if (id == "AddSVSF") {
+            if (id == "addSVSF") {
                 document.getElementById('<%= AddSVSF_Button.ClientID %>').click();
             }
         }
@@ -405,7 +405,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                     </asp:RequiredFieldValidator>
                                 </div>
                                 <div>
-                                    <label for="SSF_Capacita0">Capacità: </label>
+                                    <label for="SSF_Capacita0">Capacita: </label>
                                     <asp:TextBox id="SSF_Capacita0" runat="server" ></asp:TextBox>
                                     <asp:RequiredFieldValidator 
                                         ID="SSFCapacitaValidator"
@@ -445,7 +445,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                        <div id="SVSFForm">
                            <div class="form-row dinamic-row">
                                <div>
-                                   <label for="SVSF_Nome0">Nome Server:</label>
+                                   <label for="SVSF_Nome0">Nome Server virtuale:</label>
                                    <asp:TextBox id="SVSF_Nome0" runat="server" ></asp:TextBox>
                                    <asp:RequiredFieldValidator 
                                        ID="SVSF_NomeValidator"
@@ -454,7 +454,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                        ErrorMessage="Inserisci il nome del server virtuale"
                                        ForeColor="Red"
                                        Display="Dynamic"
-                                       ValidationGroup="Group2" >
+                                       ValidationGroup="Group3" >
                                    </asp:RequiredFieldValidator>
                                </div>
                                <div>
@@ -467,7 +467,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                        ErrorMessage="Inserisci la RAM virtuale"
                                        ForeColor="Red"
                                        Display="Dynamic"
-                                       ValidationGroup="Group2" >
+                                       ValidationGroup="Group3" >
                                    </asp:RequiredFieldValidator>
                                </div>
                                <!--<span class='remove-row' onclick='removeRow(this)'>&times;</span>-->
@@ -483,7 +483,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                         ErrorMessage="Inserisci la CPU"
                                         ForeColor="Red"
                                         Display="Dynamic"
-                                        ValidationGroup="Group2" >
+                                        ValidationGroup="Group3" >
                                     </asp:RequiredFieldValidator>
                                 </div>
                                 <div>
@@ -496,7 +496,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                         ErrorMessage="Inserisci l'IP del server "
                                         ForeColor="Red"
                                         Display="Dynamic"
-                                        ValidationGroup="Group2" >
+                                        ValidationGroup="Group3" >
                                     </asp:RequiredFieldValidator>
                                 </div>
                                 <!--<span class='remove-row' onclick='removeRow(this)'>&times;</span>-->
@@ -504,7 +504,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                            <asp:PlaceHolder ID="SVSFph" runat="server"></asp:PlaceHolder>
                        </div>    
                    </div>
-                   <asp:Button ID="AddSVSF_Button" runat="server" OnClick="AddSVSF_Button_Click" ValidationGroup="Group2" style="display:none;" />
+                   <asp:Button ID="AddSVSF_Button" runat="server" OnClick="AddSVSF_Button_Click" ValidationGroup="Group3" style="display:none;" />
 
                 </asp:Panel>
 
@@ -694,7 +694,7 @@ BorderWidth="0px" PagerSettings-PageButtonCount="25"  onrowcommand="data_RowComm
                                     </asp:RequiredFieldValidator>
                                 </div>
                                 <div>
-                                    <label for="SSV_Capacita0">Capacità: </label>
+                                    <label for="SSV_Capacita0">Capacita: </label>
                                     <asp:TextBox id="SSV_Capacita0" runat="server" ></asp:TextBox>
                                     <asp:RequiredFieldValidator 
                                         ID="RequiredFieldValidator2"

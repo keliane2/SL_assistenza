@@ -25,6 +25,7 @@ namespace WebApplication4
         private SqlConnection l_myConnection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["WebSiteConnectionString"].ConnectionString);
         private SqlDataAdapter da, da2;
         private List<StorageFisico> StorageFisicoList;
+        private List<ServerVirtuale> ServerVirtualeList;
         private List<StorageVirtuale> StorageVirtualeList;
 
 
@@ -37,6 +38,14 @@ namespace WebApplication4
             else
             {
                 StorageFisicoList = new List<StorageFisico>();
+            }
+            if (Session["ServerVirtualeList"] != null)
+            {
+                ServerVirtualeList = (List<ServerVirtuale>)Session["ServerVirtualeList"];
+            }
+            else
+            {
+                ServerVirtualeList = new List<ServerVirtuale>();
             }
             if (Session["StorageVirtualeList"] != null)
             {
@@ -87,6 +96,7 @@ namespace WebApplication4
             StorageVirtualePanel.Visible = false;
             StorageVirtualeUpdatepanel.Visible = false;
             SSF.Visible = false;
+            SVSF.Visible = false;
             ServerFisicoActionPanel.Visible = false;
             SSV.Visible = false;
             ServerVirtualeActionPanel.Visible = false;
@@ -245,6 +255,7 @@ namespace WebApplication4
                     StorageVirtualeUpdatepanel.Visible = false;
                     ServerVirtualePanelForm.Visible = false;
                     SSF.Visible = false;
+                    SVSF.Visible = false;
                     //SaveServerFisico.Enabled = false;
                     deleteServerFisico.Enabled = true;
                     SqlCommand myCommand = new SqlCommand("SELECT SERVER_FISICO_Nome, SERVER_FISICO_Note, SERVER_FISICO_Seriale, SERVER_FISICO_DataIstallazione, SERVER_FISICO_GaranziaScadenza, SERVER_FISICO_IP, SERVER_FISICO_HD, SERVER_FISICO_Fornitore, SERVER_FISICO_FatturaCliente, SERVER_FISICO_FatturaFornitore, SERVER_FISICO_Dominio, SERVER_FISICO_Subnet, SERVER_FISICO_Gateway, SERVER_FISICO_HostNameMailServer FROM SERVER_FISICI where SERVER_FISICO_Id = @SERVER_FISICO_Id", l_myConnection);
@@ -804,6 +815,34 @@ namespace WebApplication4
                                     }
                                     Session["SSFRowCount"] = null;
                                 }
+
+                                if (this.ServerVirtualeList != null)
+                                {
+                                    for (int i = 0; i <= SVSFRowCount; i++)
+                                    {
+                                        string nomeTextBoxId = "SVSF_Nome" + i;
+                                        string ramTextBoxId = "SVSF_RAM" + i;
+                                        string cpuTextBoxId = "SVSF_CPU" + i;
+                                        string ipTextBoxId = "SVSF_IP" + i;
+
+
+                                        TextBox txtNome = (TextBox)SVSFph.FindControl(nomeTextBoxId);
+                                        TextBox txtRAM = (TextBox)SVSFph.FindControl(ramTextBoxId);
+                                        TextBox txtCPU = (TextBox)SVSFph.FindControl(cpuTextBoxId);
+                                        TextBox txtIP = (TextBox)SVSFph.FindControl(ipTextBoxId);
+                                        
+                                        myCommand = new SqlCommand("INSERT INTO SERVER_VIRTUALI VALUES(@SERVER_VIRTUALE_Nome, @SERVER_VIRTUALE_RAM, @SERVER_VIRTUALE_CPU, @SERVER_VIRTUALE_IP, @SERVER_VIRTUALE_IdServerFisico)", l_myConnection);
+                                        myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_Nome", txtNome.Text.ToString());
+                                        myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_RAM", txtRAM.Text.ToString());
+                                        myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_CPU", txtCPU.Text.ToString());
+                                        myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_IP", txtIP.Text.ToString());
+                                        myCommand.Parameters.AddWithValue("@SERVER_VIRTUALE_IdServerFisico", ServerFisicoCampo0.Text.ToString());
+
+                                        myCommand.ExecuteNonQuery();
+
+                                    }
+                                    Session["SVSFRowCount"] = null;
+                                }
                             }
                         }
                     }
@@ -829,6 +868,7 @@ namespace WebApplication4
                     ServerFisicoUpdatePanel.Visible = true;
                     HwUpdatepanel.Visible = true;
                     StorageFisicoList = null;
+                    ServerVirtualeList = null;
                 }
                 //pulisci_ServerFisico();
             }
@@ -850,8 +890,10 @@ namespace WebApplication4
                 ServerVirtualePanelForm.Visible = false;
                 StoragePanel.Visible = false;
                 SSF.Visible = true;
+                SVSF.Visible = true;
                 ServerFisicoActionPanel.Visible = true;
                 Session["StorageFisicoList"] = null;
+                Session["ServerVirtualeList"] = null;
 
             }
         }
@@ -1430,7 +1472,7 @@ namespace WebApplication4
                 int capacita;
                 if (int.TryParse(StorageVirtualeCapacita.Text, out capacita))  // Assicurati di fare il parsing corretto
                 {
-                    // Aggiungi il nuovo StorageFisico alla lista
+                    // Aggiungi il nuovo StorageVirtuale alla lista
                     this.StorageVirtualeList.Add(new StorageVirtuale(StorageVirtualeNome.Text, capacita, StorageVirtualeNote.Text));
                     Session["StorageVirtualeList"] = StorageVirtualeList;
                 }
@@ -1586,7 +1628,7 @@ namespace WebApplication4
             }
             for (int i = 1; i <= SVSFRowCount; i++)
             {
-                AddStorageRow(i, "SVSF");
+                AddServerRow(i, "SVSF");
             }
         }
 
@@ -1607,8 +1649,8 @@ namespace WebApplication4
         protected void AddSVSF_Button_Click(object sender, EventArgs e)
         {
             // Incrementa il contatore salvato nella Sessione
-            SSVRowCount++;
-            AddServerRow(SSVRowCount, "SVSF");
+            SVSFRowCount++;
+            AddServerRow(SVSFRowCount, "SVSF");
         }
 
         private void AddStorageRow(int index, string ID_base)
@@ -1620,6 +1662,8 @@ namespace WebApplication4
             // Crea un Panel per rappresentare una riga dinamica (equivalente a un div con classe "form-row")
             Panel pnlRow = new Panel();
             pnlRow.CssClass = "form-row";
+            Panel pnlRow2 = new Panel();
+            pnlRow2.CssClass = "form-row";
 
             // Blocco per "Nome Storage"
             Panel pnlNome = new Panel();
@@ -1687,10 +1731,13 @@ namespace WebApplication4
             // Crea un Panel per rappresentare una riga dinamica (equivalente a un div con classe "form-row")
             Panel pnlRow = new Panel();
             pnlRow.CssClass = "form-row";
+            Panel pnlRow2 = new Panel();
+            pnlRow2.CssClass = "form-row";
 
             // Blocco per "Nome Server"
+
             Panel pnlNome = new Panel();
-            pnlNome.Controls.Add(new LiteralControl($"<label for='{ID_base}_Nome{index}'>Nome Storage: </label>"));
+            pnlNome.Controls.Add(new LiteralControl($"<label for='{ID_base}_Nome{index}'>Nome server virtuale: </label>"));
             TextBox txtNome = new TextBox();
             txtNome.ID = ID_base + "_Nome" + index;
             pnlNome.Controls.Add(txtNome);
@@ -1700,7 +1747,7 @@ namespace WebApplication4
             validatorNome.ErrorMessage = "Inserisci il nome del server virtuale";
             validatorNome.ForeColor = red;
             validatorNome.Display = ValidatorDisplay.Dynamic;
-            validatorNome.ValidationGroup = "Group2";
+            validatorNome.ValidationGroup = "Group3";
             pnlNome.Controls.Add(validatorNome);
 
 
@@ -1708,7 +1755,7 @@ namespace WebApplication4
             Panel pnlRAM = new Panel();
             pnlRAM.Controls.Add(new LiteralControl($"<label for='{ID_base}_RAM{index}'>RAM: </label>"));
             TextBox txtRAM = new TextBox();
-            txtRAM.ID = ID_base + "RAM" + index;
+            txtRAM.ID = ID_base + "_RAM" + index;
             pnlRAM.Controls.Add(txtRAM);
             RequiredFieldValidator validatorRAM = new RequiredFieldValidator();
             validatorRAM.ID = txtRAM.ID + "Validator";
@@ -1716,7 +1763,7 @@ namespace WebApplication4
             validatorRAM.ErrorMessage = "Inserisci la RAM del server virtuale";
             validatorRAM.ForeColor = red;
             validatorRAM.Display = ValidatorDisplay.Dynamic;
-            validatorRAM.ValidationGroup = "Group2";
+            validatorRAM.ValidationGroup = "Group3";
             pnlRAM.Controls.Add(validatorRAM);
 
             // Blocco per "CPU"
@@ -1731,32 +1778,34 @@ namespace WebApplication4
             validatorCPU.ErrorMessage = "Inserisci la CPU";
             validatorCPU.ForeColor = red;
             validatorCPU.Display = ValidatorDisplay.Dynamic;
-            validatorCPU.ValidationGroup = "Group2";
+            validatorCPU.ValidationGroup = "Group3";
             pnlCPU.Controls.Add(validatorCPU);
+
 
             // Blocco per "IP"
             Panel pnlIP = new Panel();
             pnlIP.Controls.Add(new LiteralControl($"<label for='{ID_base}_IP{index}'>IP: </label>"));
             TextBox txtIP = new TextBox();
             txtIP.ID = ID_base + "_IP" + index;
-            pnlCPU.Controls.Add(txtCPU);
+            pnlIP.Controls.Add(txtIP);
             RequiredFieldValidator validatorIP = new RequiredFieldValidator();
-            validatorIP.ID = txtCPU.ID + "Validator";
-            validatorIP.ControlToValidate = txtCPU.ID;
+            validatorIP.ID = txtIP.ID + "Validator";
+            validatorIP.ControlToValidate = txtIP.ID;
             validatorIP.ErrorMessage = "Inserisci l'IP del server";
             validatorIP.ForeColor = red;
             validatorIP.Display = ValidatorDisplay.Dynamic;
-            validatorIP.ValidationGroup = "Group2";
+            validatorIP.ValidationGroup = "Group3";
             pnlIP.Controls.Add(validatorIP); 
 
             // Aggiunge i tre blocchi al pannello della riga
             pnlRow.Controls.Add(pnlNome);
             pnlRow.Controls.Add(pnlRAM);
-            pnlRow.Controls.Add(pnlCPU);
-            PN
+            pnlRow2.Controls.Add(pnlCPU);
+            pnlRow2.Controls.Add(pnlIP);
 
-            // Aggiunge la riga al PlaceHolder
-            SSFph.Controls.Add(pnlRow);
+            // Aggiunge le righe al PlaceHolder
+            SVSFph.Controls.Add(pnlRow);
+            SVSFph.Controls.Add(pnlRow2);
         }
 
     }

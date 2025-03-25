@@ -76,6 +76,7 @@
     <Content Include="WebForm3.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServerVirtuale.cs" />
     <Compile Include="StorageVirtuale.cs" />
     <Compile Include="StorageFisico.cs" />
     <Compile Include="PdfHandler.ashx.cs">
